@@ -1,3 +1,7 @@
 king_homepage:
     path:     /
     defaults: { _controller: KingBundle:Default:index }
+    
+king_register_type:
+    path:    /register
+    defaults: { _controller KingBundle:Default:registerType }

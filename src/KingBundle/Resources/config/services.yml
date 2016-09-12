@@ -2,3 +2,26 @@ services:
 #    king.example:
 #        class: KingBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+    king.admin.category:
+        class: KingBundle\Admin\CategoryAdmin
+        arguments: [~, KingBundle\Entity\Category, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Category }
+
+    king.admin.sub_category:
+        class: KingBundle\Admin\SubCategoryAdmin
+        arguments: [~, KingBundle\Entity\SubCategory, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: SubCategory }
+
+    king.admin.type:
+        class: KingBundle\Admin\TypeAdmin
+        arguments: [~, KingBundle\Entity\Type, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Type }
+
+    king.admin.type_label:
+        class: KingBundle\Admin\TypeLabelAdmin
+        arguments: [~, KingBundle\Entity\TypeLabel, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeLabel }

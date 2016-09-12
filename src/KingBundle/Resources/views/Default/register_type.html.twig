@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- -->
+
+    <!-- Location picker -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwayCMyzNJVNicc5WK-Jdf5wd1kJpeHkE"></script>
+    <script src="{{ asset('js/locationpicker.jquery.js') }}"></script>
+    <title>jquery-location-picker demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+        <div id="examples">
+            <p>
+                
+                {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+                <h3>REGISTER A TYPE</h3>
+            {{ form_start(form) }}
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Name:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder':'Eg. Sakoma branch'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Label:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.label, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Address:</label>
+
+                        <div class="col-sm-5">
+                            {{ form_widget(form.address, {'attr': {'class': 'form-control', 'width':'110px'}, 'id':'us2-address'}) }}
+                            <!--<input type="text" class="form-control" id="us2-address" />-->
+                        </div>
+                    </div>
+                    <div class="m-t-small">
+                        <label class="p-r-small col-sm-1 control-label">Lat.:</label>
+
+                        <div class="col-sm-1">
+                            {{ form_widget(form.latitude, {'attr': {'class': 'form-control', 'width':'110px', 'readonly':'true'}, 'id':'us2-lat'}) }}
+                            <!--<input type="text" class="form-control" style="width: 110px" id="us2-lat" />-->
+                        </div>
+                        <label class="p-r-small col-sm-1 control-label">Long.:</label>
+
+                        <div class="col-sm-1">
+                            {{ form_widget(form.longitude, {'attr': {'class': 'form-control', 'readonly':'true'}, 'width':'110px', 'id':'us2-lon'}) }}
+                            <!--<input type="text" class="form-control" style="width: 110px" id="us2-lon" />-->
+                        </div>
+                    </div>
+                    
+                    <div id="us2" style="width: 1200px; height: 600px;"></div>
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-lg'}}) }}
+                    
+                {{ form_end(form) }}
+                    <div class="clearfix">&nbsp;</div>
+                    
+                    <div class="clearfix"></div>
+                </div>
+                <script>
+                    $('#us2').locationpicker({
+                        location: {
+                            latitude: 46.15242437752303,
+                            longitude: 2.7470703125
+                        },
+                        radius: 0,
+                        inputBinding: {
+                            latitudeInput: $('#us2-lat'),
+                            longitudeInput: $('#us2-lon'),
+                            radiusInput: $('#us2-radius'),
+                            locationNameInput: $('#us2-address')
+                        },
+                        enableAutocomplete: true
+                    });
+                </script>
+
+                
+        <footer>
+            <p class="pull-right"><a href="#start">Back to top</a></p>
+
+            
+        </footer>
+    </div>
+</body>
+
+</html>
