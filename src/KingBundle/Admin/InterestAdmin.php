@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class TypeLabelAdmin extends AbstractAdmin
+class InterestAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -16,8 +16,13 @@ class TypeLabelAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-           
+            ->add('id')
             ->add('name')
+            ->add('latitude')
+            ->add('longitude')
+            ->add('officialAddress')
+            ->add('localAddress')
+            ->add('createdAt')
         ;
     }
 
@@ -27,8 +32,13 @@ class TypeLabelAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            
+            ->add('id')
             ->add('name')
+            ->add('latitude')
+            ->add('longitude')
+            ->add('officialAddress')
+            ->add('localAddress')
+            ->add('createdAt')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -45,8 +55,13 @@ class TypeLabelAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-           
+            ->add('id')
             ->add('name')
+            ->add('latitude')
+            ->add('longitude')
+            ->add('officialAddress')
+            ->add('localAddress')
+            ->add('createdAt')
         ;
     }
 
@@ -58,6 +73,11 @@ class TypeLabelAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
+            ->add('latitude')
+            ->add('longitude')
+            ->add('officialAddress')
+            ->add('localAddress')
+            ->add('createdAt')
         ;
     }
 }

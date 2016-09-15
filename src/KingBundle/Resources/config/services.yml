@@ -8,20 +8,20 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Category }
 
-    king.admin.sub_category:
-        class: KingBundle\Admin\SubCategoryAdmin
-        arguments: [~, KingBundle\Entity\SubCategory, SonataAdminBundle:CRUD]
+    king.admin.category_instance:
+        class: KingBundle\Admin\CategoryInstanceAdmin
+        arguments: [~, KingBundle\Entity\CategoryInstance, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: SubCategory }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: CategoryInstance }
 
-    king.admin.type:
-        class: KingBundle\Admin\TypeAdmin
-        arguments: [~, KingBundle\Entity\Type, SonataAdminBundle:CRUD]
+    king.admin.interest:
+        class: KingBundle\Admin\InterestAdmin
+        arguments: [~, KingBundle\Entity\Interest, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Type }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Interest }
 
-    king.admin.type_label:
-        class: KingBundle\Admin\TypeLabelAdmin
-        arguments: [~, KingBundle\Entity\TypeLabel, SonataAdminBundle:CRUD]
+    king.admin.logo:
+        class: KingBundle\Admin\LogoAdmin
+        arguments: [~, KingBundle\Entity\Logo, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeLabel }
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Logo }

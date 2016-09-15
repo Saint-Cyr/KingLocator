@@ -2,6 +2,10 @@ king_homepage:
     path:     /
     defaults: { _controller: KingBundle:Default:index }
     
-king_register_type:
+king_register_interest:
     path:    /register
-    defaults: { _controller KingBundle:Default:registerType }
+    defaults: { _controller: KingBundle:Default:registerInterest }
+    
+king_result:
+    path:  /result
+    defaults: { _controller: KingBundle:Default:result }

@@ -36,9 +36,9 @@ class Category
     private $createdAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="KingBundle\Entity\SubCategory", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="KingBundle\Entity\CategoryInstance", mappedBy="category")
      */
-    private $subCategories;
+    private $categoryInstances;
 
 
     /**
@@ -97,46 +97,5 @@ class Category
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->subCategories = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add subCategory
-     *
-     * @param \KingBundle\Entity\SubCategory $subCategory
-     *
-     * @return Category
-     */
-    public function addSubCategory(\KingBundle\Entity\SubCategory $subCategory)
-    {
-        $this->subCategories[] = $subCategory;
-
-        return $this;
-    }
-
-    /**
-     * Remove subCategory
-     *
-     * @param \KingBundle\Entity\SubCategory $subCategory
-     */
-    public function removeSubCategory(\KingBundle\Entity\SubCategory $subCategory)
-    {
-        $this->subCategories->removeElement($subCategory);
-    }
-
-    /**
-     * Get subCategories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSubCategories()
-    {
-        return $this->subCategories;
     }
 }

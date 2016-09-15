@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class SubCategoryAdmin extends AbstractAdmin
+class LogoAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -16,9 +16,7 @@ class SubCategoryAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
             ->add('name')
-            ->add('createdAt')
         ;
     }
 
@@ -30,7 +28,6 @@ class SubCategoryAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('createdAt')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -47,9 +44,9 @@ class SubCategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
+            
             ->add('name')
-            ->add('createdAt')
+            ->add('categoryInstance')
         ;
     }
 
@@ -61,7 +58,6 @@ class SubCategoryAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('name')
-            ->add('createdAt')
         ;
     }
 }

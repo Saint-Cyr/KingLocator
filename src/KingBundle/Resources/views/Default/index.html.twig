@@ -1,1 +1,195 @@
-Home page ....
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation Marker Example Usage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    
+    <style>
+      html, body, #map_canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+    </style>
+    <link href="{{ asset('css/style.css') }}" rel='stylesheet' type='text/css' />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- -->
+    
+    <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwayCMyzNJVNicc5WK-Jdf5wd1kJpeHkE&callback=initMap"></script>
+    <script src="{{ asset('js/geo.js') }}"></script>
+    <script>
+      var map;
+
+      function initialize() {
+
+        var mapOptions = {
+          zoom: 12,
+          center: new google.maps.LatLng(-34.397, 150.644),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+
+	//Adding icons start here by S@int-Cyr
+        
+        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var icons = {
+        {% for interest in interests %}
+            {{ interest.id }}: {
+            icon: '{{ asset('images/eco.jpg') }}'
+          },
+        {% endfor %}
+         
+        };
+
+        function addMarker(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        }
+
+        var features = [
+        {% for interest in interests %}
+        {
+            position: new google.maps.LatLng({{ interest.latitude }}, {{ interest.longitude }}),
+            type: '{{ interest.id }}'
+          },
+        {% endfor %}
+          
+        ];
+
+        for (var i = 0, feature; feature = features[i]; i++) {
+          addMarker(feature);
+        }
+      
+
+        //Current location start here
+        GeoMarker = new GeolocationMarker(map);
+        GeoMarker.setCircleOptions({fillColor: '#808080'});
+
+        google.maps.event.addListenerOnce(GeoMarker, 'position_changed', function() {
+          
+	  //alert(JSON.stringify(this.getPosition()));
+          var response = JSON.parse(JSON.stringify(this.getPosition()));
+          //alert(response.lng);
+          //alert(response.lat);
+          map.setCenter(this.getPosition());
+          
+          //map.fitBounds(this.getBounds());
+         /* $.post('http://localhost/VTALLY/web/app_dev.php/api/fronts', {"lat":5.5, "long":-0.2}, function(data) {
+              $('#result').html(data);    
+          });*/
+          
+               /* $.get("http://localhost/KingLocator/web/app_dev.php/result",
+                {
+                        lat: "5.5",
+                        long: "-0.2"
+                      },
+              function(data, status){
+                  //alert("Data: " + data + "\nStatus: " + status);
+                  alert(JSON.stringify(data));
+              });*/
+              
+              var data = {};
+              $.ajax({
+                url: "http://localhost/KingLocator/web/app_dev.php/result",
+                type: "get", //send it through get method
+                data:{lat:response.lat, long:response.lng},
+                success: function(response) {
+                  $('#result').html(response);
+                },
+                error: function(xhr) {
+                  //Do Something to handle error
+                }
+              });
+          
+        });
+
+        google.maps.event.addListener(GeoMarker, 'geolocation_error', function(e) {
+          alert('There was an error obtaining your position. Message: ' + e.message);
+        });
+
+        GeoMarker.setMap(map);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+      if(!navigator.geolocation) {
+        alert('Your browser does not support geolocation');
+      }
+	
+    </script>
+  </head>
+  <body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+      <br>
+      
+      <div class="col-sm-6 col-md-4">
+		<span class="menu_3_left" ></span>
+		<div class="menu_middle">
+					
+				</div>
+
+		
+		
+	</div>
+      
+      
+      
+      
+      <img class="navbar-right" width="130px" src="{{ asset('images/logo.jpg') }}"/> 
+  </div>
+</nav>
+  
+  <br>
+  <br>
+  <div class="container">
+  <div class="row" id="toHide">
+      <!-- Menu-4 -->
+      <br>
+      
+        
+      <!--<div class="menu_5">
+		<ul>
+			<li class="men_5l"><a href="#"><span><img src="{{ asset('images/menu_5_1.PNG') }}" alt=""></span> <p>Edit--</p></a></li>
+			<li class="men_5_active"><a href="#"><span><img src="{{ asset('images/menu_5_2.png') }}" alt=""></span> <p>Components</p></a></li>
+			<li><a href="#"><span><img src="{{ asset('images/menu_5_3.png') }}" alt=""></span> <p>Contact</p></a></li>
+			<li><a href="#"><span><img src="{{ asset('images/menu_5_4.png') }}" alt=""></span> <p>Add</p></a></li>
+			<li class="men_52"><a href="#"><span><img src="{{ asset('images/menu_5_3.png') }}" alt=""></span> <p>Contact</p></a></li>
+		</ul>
+	</div>-->
+  </div>
+   
+  <!-- Modal -->
+  <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Content will be loaded here from "remote.php" file -->
+            </div>
+        </div>
+    </div>
+  <div class="row" id="result">
+      
+  <img src="{{ asset('images/1.gif') }}" class="img-responsive center-block" />
+</div>
+
+
+
+  </div>
+   
+
+    <div id="map_canvas"></div>
+  </body>
+</html>

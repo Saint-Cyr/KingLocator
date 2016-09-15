@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class TypeAdmin extends AbstractAdmin
+class CategoryInstanceAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -16,8 +16,13 @@ class TypeAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-           
+            ->add('id')
             ->add('name')
+            ->add('createdAt')
+            ->add('description')
+            ->add('logo')
+            ->add('headOfficeAdress')
+            ->add('headOfficePhone')
         ;
     }
 
@@ -28,11 +33,12 @@ class TypeAdmin extends AbstractAdmin
     {
         $listMapper
             ->add('id')
-            ->add('address')
             ->add('name')
-            ->add('latitude')
-            ->add('longitude')
             ->add('createdAt')
+            ->add('description')
+            ->add('logo')
+            ->add('headOfficeAdress')
+            ->add('headOfficePhone')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -49,10 +55,12 @@ class TypeAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            
             ->add('name')
-            ->add('lat')
-            ->add('long')
-            ->add('createdAt')
+            ->add('description')
+            ->add('logo')
+            ->add('headOfficeAdress')
+            ->add('headOfficePhone')
         ;
     }
 
@@ -62,10 +70,13 @@ class TypeAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('id')
             ->add('name')
-            ->add('lat')
-            ->add('long')
             ->add('createdAt')
+            ->add('description')
+            ->add('logo')
+            ->add('headOfficeAdress')
+            ->add('headOfficePhone')
         ;
     }
 }

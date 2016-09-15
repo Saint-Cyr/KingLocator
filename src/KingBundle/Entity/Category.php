@@ -36,9 +36,9 @@ class Category
     private $createdAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="KingBundle\Entity\SubCategory", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="KingBundle\Entity\CategoryInstance", mappedBy="category")
      */
-    private $subCategories;
+    private $categoryInstances;
 
 
     /**
@@ -103,40 +103,40 @@ class Category
      */
     public function __construct()
     {
-        $this->subCategories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categoryInstances = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add subCategory
+     * Add categoryInstance
      *
-     * @param \KingBundle\Entity\SubCategory $subCategory
+     * @param \KingBundle\Entity\CategoryInstance $categoryInstance
      *
      * @return Category
      */
-    public function addSubCategory(\KingBundle\Entity\SubCategory $subCategory)
+    public function addCategoryInstance(\KingBundle\Entity\CategoryInstance $categoryInstance)
     {
-        $this->subCategories[] = $subCategory;
+        $this->categoryInstances[] = $categoryInstance;
 
         return $this;
     }
 
     /**
-     * Remove subCategory
+     * Remove categoryInstance
      *
-     * @param \KingBundle\Entity\SubCategory $subCategory
+     * @param \KingBundle\Entity\CategoryInstance $categoryInstance
      */
-    public function removeSubCategory(\KingBundle\Entity\SubCategory $subCategory)
+    public function removeCategoryInstance(\KingBundle\Entity\CategoryInstance $categoryInstance)
     {
-        $this->subCategories->removeElement($subCategory);
+        $this->categoryInstances->removeElement($categoryInstance);
     }
 
     /**
-     * Get subCategories
+     * Get categoryInstances
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubCategories()
+    public function getCategoryInstances()
     {
-        return $this->subCategories;
+        return $this->categoryInstances;
     }
 }

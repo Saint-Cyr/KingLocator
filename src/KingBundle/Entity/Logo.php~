@@ -5,12 +5,12 @@ namespace KingBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TypeLabel
+ * Logo
  *
- * @ORM\Table(name="type_label")
- * @ORM\Entity(repositoryClass="KingBundle\Repository\TypeLabelRepository")
+ * @ORM\Table(name="logo")
+ * @ORM\Entity(repositoryClass="KingBundle\Repository\LogoRepository")
  */
-class TypeLabel
+class Logo
 {
     /**
      * @var int
@@ -24,11 +24,16 @@ class TypeLabel
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="KingBundle\Entity\CategoryInstance", inversedBy="logos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categoryInstance;
+    
     /**
      * Get id
      *
@@ -38,17 +43,13 @@ class TypeLabel
     {
         return $this->id;
     }
-    
-    public function __toString() {
-        return $this->name;
-    }
 
     /**
      * Set name
      *
      * @param string $name
      *
-     * @return TypeLabel
+     * @return Logo
      */
     public function setName($name)
     {
@@ -67,3 +68,4 @@ class TypeLabel
         return $this->name;
     }
 }
+

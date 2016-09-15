@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TypeType extends AbstractType
+class InterestType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,9 +17,11 @@ class TypeType extends AbstractType
         $builder
             ->add('name')
             ->add('latitude')
+            ->add('officialAddress')
+            ->add('localAddress')
             ->add('longitude')
-            ->add('label', 'entity', array('class' => 'KingBundle:TypeLabel'))
-            ->add('address')
+            ->add('categoryInstance')
+            ->add('logo')
             ->add('save', 'submit')
         ;
     }
@@ -30,7 +32,7 @@ class TypeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'KingBundle\Entity\Type'
+            'data_class' => 'KingBundle\Entity\Interest'
         ));
     }
 }
