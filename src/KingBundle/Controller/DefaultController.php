@@ -22,6 +22,16 @@ class DefaultController extends Controller
         return $this->render('KingBundle:Default:index.html.twig', array('interests' => $interests));
     }
     
+    public function oneResultAction()
+    {
+        return $this->render('KingBundle:Default:oneResult.html.twig');
+    }
+    
+    public function videoResultAction()
+    {
+        return $this->render('KingBundle:Default:videoResult.html.twig');
+    }
+    
     public function resultAction()
     {
         $request = $this->container->get('request_stack')->getCurrentRequest();

@@ -29,12 +29,12 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "sonata-project/admin-bundle": "^3.0",
         "sonata-project/doctrine-orm-admin-bundle": "^3.0",
-        "friendsofsymfony/rest-bundle": "^2.1"
+        "friendsofsymfony/rest-bundle": "^2.1",
+        "hautelook/alice-bundle": "v1.3.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "hautelook/alice-bundle": "^1.2",
         "doctrine/data-fixtures": "^1.1"
     },
     "scripts": {

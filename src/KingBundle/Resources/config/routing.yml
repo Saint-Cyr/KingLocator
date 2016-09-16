@@ -9,3 +9,13 @@ king_register_interest:
 king_result:
     path:  /result
     defaults: { _controller: KingBundle:Default:result }
+
+king_one_result:
+    path:  /oneResult
+    defaults: { _controller: KingBundle:Default:oneResult }
+
+king_video_result:
+    path:  /videoResult
+    defaults: { _controller: KingBundle:Default:videoResult }
+    
+
