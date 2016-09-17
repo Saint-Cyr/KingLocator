@@ -1,0 +1,4 @@
+KingBundle\Entity\Interest:
+    interest1:
+        name: Interest1
+        

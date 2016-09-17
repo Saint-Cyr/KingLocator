@@ -52,7 +52,7 @@ class Interest
     /**
      * @var string
      *
-     * @ORM\Column(name="localAddress", type="string", length=255, unique=true)
+     * @ORM\Column(name="localAddress", type="string", length=255, unique=true, nullable=true)
      */
     private $localAddress;
     

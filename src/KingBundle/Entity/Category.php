@@ -103,6 +103,7 @@ class Category
      */
     public function __construct()
     {
+        $this->setCreatedAt(new \DateTime("now"));
         $this->categoryInstances = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

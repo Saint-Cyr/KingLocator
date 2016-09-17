@@ -1,0 +1,19 @@
+KingBundle\Entity\CategoryInstance:
+    categoryInstance1:
+        name: Category Instance 1
+        
+KingBundle\Entity\Interest:
+    interest1:
+        name: Interest1
+        latitude: 2.34
+        longitude: -0.5
+        officialAddress: Aflow rd Ghana
+        categoryInstance: "@categoryInstance1"
+        logo: "@logo1"
+        
+KingBundle\Entity\Logo:
+    logo1:
+        name: logo1.png
+        categoryInstance: "@categoryInstance1"
+        
+        
