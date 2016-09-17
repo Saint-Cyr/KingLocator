@@ -42,6 +42,8 @@ class Interest
      */
     private $longitude;
     
+    private $distance;
+    
     /**
      * @var string
      *
@@ -279,5 +281,29 @@ class Interest
     public function getLocalAddress()
     {
         return $this->localAddress;
+    }
+
+    /**
+     * Set distance
+     *
+     * @param float $distance
+     *
+     * @return Interest
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+
+        return $this;
+    }
+
+    /**
+     * Get distance
+     *
+     * @return float
+     */
+    public function getDistance()
+    {
+        return $this->distance;
     }
 }

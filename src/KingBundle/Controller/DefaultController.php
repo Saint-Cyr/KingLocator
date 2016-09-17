@@ -36,24 +36,22 @@ class DefaultController extends Controller
     {
         $request = $this->container->get('request_stack')->getCurrentRequest();
         
-          //$lat = $request->request->get('lat');
-          $lat = $request->query->get('lat');
-          $long = $request->query->get('long');
-            
-            //return $this->render('KingBundle:Default:_result.html.twig', array('lat' => $lat, 'long' => $long));
-            return $this->render('KingBundle:Default:result.html.twig');
-            //return new JsonResponse($lat);
-        
-        
-        //$request = $this->get('request');
-        //request your data
-        
+        //$lat = $request->request->get('lat');
+        $lat = $request->query->get('lat');
+        $long = $request->query->get('long');
+        //Set the current location
+        $currentLocation['lat'] = $lat;
+        $currentLocation['long'] = $long;
+        //Get the service defaultHandler
+        $defaultHandler = $this->get('king.default_handler');
         //Get the entity manager
         $em = $this->getDoctrine()->getManager();
-        //Get all the types
-        $interests = $em->getRepository('KingBundle:Interest')->findAll();
+        //Get all the interest
+        $unsortedInterests = $em->getRepository('KingBundle:Interest')->findAll();
+        //Sort all the interests
+        $sortedInterests = $defaultHandler->getMostCloser($unsortedInterests, $currentLocation, 'K');
         
-        return $this->render('KingBundle:Default:result.html.twig', array('interests' => $interests));
+        return $this->render('KingBundle:Default:result.html.twig', array('interests' => $sortedInterests));
     }
     
     public function registerInterestAction(Request $request)

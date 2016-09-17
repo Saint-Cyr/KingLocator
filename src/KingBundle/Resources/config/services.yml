@@ -25,3 +25,7 @@ services:
         arguments: [~, KingBundle\Entity\Logo, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Logo }
+    
+    king.default_handler:
+        class: KingBundle\Service\DefaultHandler
+        arguments: ["@doctrine.orm.entity_manager"]

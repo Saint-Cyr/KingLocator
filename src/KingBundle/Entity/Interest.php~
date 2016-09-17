@@ -45,6 +45,13 @@ class Interest
     /**
      * @var string
      *
+     * @ORM\Column(name="distance", type="float", length=255, unique=true)
+     */
+    private $distance;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="officialAddress", type="string", length=255, unique=true)
      */
     private $officialAddress;
@@ -52,7 +59,7 @@ class Interest
     /**
      * @var string
      *
-     * @ORM\Column(name="localAddress", type="string", length=255, unique=true)
+     * @ORM\Column(name="localAddress", type="string", length=255, unique=true, nullable=true)
      */
     private $localAddress;
     
@@ -75,7 +82,10 @@ class Interest
      */
     private $createdAt;
 
-
+    public function __construct() {
+        $this->setCreatedAt(new \DateTime("now"));
+    }
+    
     /**
      * Get id
      *
@@ -180,5 +190,101 @@ class Interest
     public function getLogo()
     {
         return $this->logo;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     *
+     * @return Interest
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     *
+     * @return Interest
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set officialAddress
+     *
+     * @param string $officialAddress
+     *
+     * @return Interest
+     */
+    public function setOfficialAddress($officialAddress)
+    {
+        $this->officialAddress = $officialAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get officialAddress
+     *
+     * @return string
+     */
+    public function getOfficialAddress()
+    {
+        return $this->officialAddress;
+    }
+
+    /**
+     * Set localAddress
+     *
+     * @param string $localAddress
+     *
+     * @return Interest
+     */
+    public function setLocalAddress($localAddress)
+    {
+        $this->localAddress = $localAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get localAddress
+     *
+     * @return string
+     */
+    public function getLocalAddress()
+    {
+        return $this->localAddress;
     }
 }

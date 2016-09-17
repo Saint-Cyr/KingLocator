@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Components of EpayZone project
+ * This file is part of Components of KingLocator project
  * By contributor S@int-Cyr MAPOUKA
- * (c) YAME Group <info@yamegroup.com>
+ * (c) WONSANO <mapoukacyr@yahoo.fr>
  * For the full copyrght and license information, please view the LICENSE
  * file that was distributed with this source code
  */
@@ -32,8 +32,12 @@ class InitFixturesTest extends WebTestCase
         $this->application = new Application(static::$kernel);
         $this->em = $this->application->getKernel()->getContainer()->get('doctrine.orm.entity_manager');
     }
-    
     public function testInit()
+    {
+        //$this->init();
+    }
+    
+    public function init()
     {
         //Step 1: drop the DB.
         $command = new DropDatabaseDoctrineCommand();

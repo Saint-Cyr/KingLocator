@@ -1,5 +1,5 @@
 <div class="row" id="result">
-  <div class="col-sm-6 col-md-4">
+ <!--<div class="col-sm-6 col-md-4">
     <div class="thumbnail">
      <div class="caption">
          <p><img src="{{ asset('images/l1.png') }}" width="33px"/> <a style="font-size:20px;"> East Airport Branch</a></p>
@@ -19,31 +19,31 @@
         </ul>
       </div>
     </div>
-  </div>
-  
-  <div class="col-sm-6 col-md-4">
+  </div>-->
+        
+        
+ {% for interest in interests|slice(0, 3) %}
+    <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
      <div class="caption">
-         <p><img src="{{ asset('images/l2.png') }}" width="33px"/><a style="font-size:23px;"> Dansoma Branch</a></p>
+         <p><img src="{{ asset('images/l1.png') }}" width="33px"/> <a style="font-size:20px;"> {{ interest.name|striptags|slice(0, 27) }}</a></p>
         <ul class="list-group">
-            <li class="list-group-item"><i class="fa fa-arrow-right"></i> 20th Rd, Accra, Ghana </li>
-            <li class="list-group-item"><i class="glyphicon glyphicon-phone-alt"></i> 233 0268 568 006</li>
-            <li class="list-group-item"><i class="fa fa-whatsapp"></i> 0234 0268 568 006</li>
+            <li class="list-group-item">
+                
+                <a href="http://localhost/KingLocator/web/app_dev.php/oneResult" data-toggle="modal" data-target="#myModal">
+                    <i class="glyphicon glyphicon-th"></i></a>
+                    {{ interest.officialAddress }}
+            </li>
+            <li class="list-group-item">
+                <a href="http://localhost/KingLocator/web/app_dev.php/videoResult" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-film"></i>
+                </a> {{ interest.localAddress }}
+            </li>
+            <li class="list-group-item"><i class="fa fa-whatsapp"></i> 0234 0268 568 006 </li>
         </ul>
       </div>
     </div>
   </div>
-  <div class="col-sm-5 col-md-4">
-    <div class="thumbnail">
-     <div class="caption">
-        <p><img src="{{ asset('images/l3.png') }}" width="33px"/><a src="##" style="font-size:23px;" class="margin-top-20"> Kwashima Branch</a></p>
-        <ul class="list-group">
-            <li class="list-group-item"><i class="fa fa-arrow-right"></i> George W Bush Hwy, Accra, Ghana </li>
-            <li class="list-group-item"><i class="glyphicon glyphicon-phone-alt"></i> 233 0268 568 006</li>
-            <li class="list-group-item"><i class="fa fa-whatsapp"></i> 0234 0268 568 006</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+ {% endfor %}
 </div>
         

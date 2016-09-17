@@ -3,11 +3,27 @@ KingBundle\Entity\CategoryInstance:
         name: Category Instance 1
         
 KingBundle\Entity\Interest:
+    interest2:
+        name: Ecobank ATM Teshie Rd. Accra, Ghana
+        latitude: 5.588
+        longitude: -0.099
+        officialAddress: Teshie Rd, Accra, Ghana
+        categoryInstance: "@categoryInstance1"
+        logo: "@logo1"
+        
     interest1:
-        name: Interest1
-        latitude: 2.34
-        longitude: -0.5
-        officialAddress: Aflow rd Ghana
+        name: Branch of 18 Junction
+        latitude: 5.628
+        longitude: -0.079
+        officialAddress: Rd Leading to Spintex-Sakumono, Ghana
+        categoryInstance: "@categoryInstance1"
+        logo: "@logo1"
+        
+    interest3:
+        name: Ecobank Branch & ATM East Airport
+        latitude: 5.626
+        longitude: -0.154
+        officialAddress: Spintex Rd, Accra, Ghana
         categoryInstance: "@categoryInstance1"
         logo: "@logo1"
         
