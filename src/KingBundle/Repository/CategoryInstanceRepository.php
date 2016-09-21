@@ -10,4 +10,16 @@ namespace KingBundle\Repository;
  */
 class CategoryInstanceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getForSearch($keyWord)
+    {
+        $query = $this->_em->createQueryBuilder();
+                 $query->select('c')
+                    ->from('KingBundle:CategoryInstance', 'c')
+                    ->where($query->expr()->like('c.name', $query->expr()->literal('%' . $keyWord . '%')))
+                    ->orderBy('c.name', 'ASC')
+                    ->getQuery()
+                    ->setParameter('keyWord', '%'.$keyWord.'%');
+              
+        return $query->getQuery()->getResult();
+    }
 }

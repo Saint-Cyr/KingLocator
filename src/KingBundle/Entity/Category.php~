@@ -98,4 +98,46 @@ class Category
     {
         return $this->createdAt;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime("now"));
+        $this->categoryInstances = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add categoryInstance
+     *
+     * @param \KingBundle\Entity\CategoryInstance $categoryInstance
+     *
+     * @return Category
+     */
+    public function addCategoryInstance(\KingBundle\Entity\CategoryInstance $categoryInstance)
+    {
+        $this->categoryInstances[] = $categoryInstance;
+
+        return $this;
+    }
+
+    /**
+     * Remove categoryInstance
+     *
+     * @param \KingBundle\Entity\CategoryInstance $categoryInstance
+     */
+    public function removeCategoryInstance(\KingBundle\Entity\CategoryInstance $categoryInstance)
+    {
+        $this->categoryInstances->removeElement($categoryInstance);
+    }
+
+    /**
+     * Get categoryInstances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategoryInstances()
+    {
+        return $this->categoryInstances;
+    }
 }

@@ -5,6 +5,8 @@ namespace KingBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class InterestType extends AbstractType
 {
@@ -16,12 +18,19 @@ class InterestType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('email')
+            ->add('officePhone')
+            ->add('whatsApp')
             ->add('latitude')
             ->add('officialAddress')
+            ->add('staticImage', FileType::class, array('label' => 'Static Image', 'required' => false))
+            ->add('animatedImage', FileType::class, array('label' => 'Animated image (gif)', 'required' => false))
+            ->add('audio', FileType::class, array('label' => 'Audio file', 'required' => false))
+            ->add('audioVisual', FileType::class, array('label' => 'Audio visual file', 'required' => false))
             ->add('localAddress')
             ->add('longitude')
             ->add('categoryInstance')
-            ->add('logo')
+            ->add('icon')
             ->add('save', 'submit')
         ;
     }

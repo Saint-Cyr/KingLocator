@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Bootstrap stuff -->
+    <!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+    <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+    <script src="{{ asset('js/jquery-1.10.2.min.js') }}"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <!-- -->
+
+    <!-- Location picker -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwayCMyzNJVNicc5WK-Jdf5wd1kJpeHkE"></script>
+    <script src="{{ asset('js/locationpicker.jquery.js') }}"></script>
+    <title>Wonsano | Interest registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    
+    $(document).ready(function(){
+        $('#icon').html('<img src="{{ asset('images/loader.gif') }}" alt="" >');
+        var s = $('#interest_icon').val();
+            //alert(s);
+            console.log(s);
+                $.ajax({
+                    url: "http://localhost/KingLocator/web/app_dev.php/icon-ajax",
+                    type: "get", //send it through get method
+                    data:{keyWord:s},
+                    success: function(response) {
+                      $('#icon').html(response);
+                    },
+                    error: function(xhr) {
+                    alert('An error occur when request page with AJAX.');
+                }
+              });
+              
+        $('#interest_icon').change(function(){
+            $('#icon').html('<img src="{{ asset('images/loader.gif') }}" alt="" >');
+            var s = $('#interest_icon').val();
+            //alert(s);
+            console.log(s);
+                $.ajax({
+                    url: "http://localhost/KingLocator/web/app_dev.php/icon-ajax",
+                    type: "get", //send it through get method
+                    data:{keyWord:s},
+                    success: function(response) {
+                      $('#icon').html(response);
+                    },
+                    error: function(xhr) {
+                    alert('An error occur when request page with AJAX.');
+                }
+              });
+        });
+    });
+  </script>
+</head>
+
+<body>
+    <br><br><br><br>
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+      
+      <br>
+      
+    <div class="col-sm-6 col-md-4">
+        <span class="menu_3_left" ></span>
+        <div class="menu_middle">
+
+        </div>
+    </div>
+      <a href="{{ path('king_homepage') }}"><img class="navbar-right" width="130px" src="{{ asset('images/logo.jpg') }}"/></a>
+  </div>
+</nav>
+    
+        
+        
+<div class="container">
+    <div class="alert alert-warning" role="alert"><em>Important notice:</em>
+        Please notice that for the seek of quality of service that we care about a lot, the registration of an interest is strictly
+        crutial. Therefore we recommand you read this note before continue</div>
+     {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    {{ form_start(form) }}
+    <fieldset>
+    <legend>Registration of an interest</legend>
+    <div class='row'>
+                
+        <div class='col-sm-4'>
+        {% if (form_errors(form.name)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.name) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.name) }}</div>
+                {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder':'Eg. ICGC Christ Temple'}}) }}
+            </div>
+        </div>
+            
+       <div class='col-sm-4'>
+        {% if (form_errors(form.officialAddress)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.officialAddress) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.officialAddress) }}</div>
+                {{ form_widget(form.officialAddress, {'attr': {'class': 'form-control', 'width':'110px'}, 'id':'us2-address'}) }}
+            </div>
+        </div>
+        
+        <div class='col-sm-4'>
+        {% if (form_errors(form.localAddress)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.localAddress) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.localAddress) }}</div>
+                {{ form_widget(form.localAddress, {'attr': {'class': 'form-control', 'placeholder':'Eg. Ibetam - from Kaneshi round about to Accra'}}) }}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class='row'>
+        
+        <div class='col-sm-4'>
+        {% if (form_errors(form.email)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.email) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.email) }}</div>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder':'Eg. mapoukacyr@yahoo.fr'}}) }}
+            </div>
+        </div>
+        
+        <div class='col-sm-4'>
+        {% if (form_errors(form.officePhone)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.officePhone) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.officePhone) }}</div>
+                {{ form_widget(form.officePhone, {'attr': {'class': 'form-control', 'placeholder':'Eg. +233 036 856 8006'}}) }}
+            </div>
+        </div>
+        
+                
+        <div class='col-sm-4'>
+        {% if (form_errors(form.whatsApp)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.whatsApp) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.whatsApp) }}</div>
+                {{ form_widget(form.whatsApp, {'attr': {'class': 'form-control', 'placeholder':'Eg. 0268568006'}}) }}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class='row'>
+        <div class='col-sm-4'>
+        {% if (form_errors(form.staticImage)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.staticImage) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.staticImage) }}</div>
+                {{ form_widget(form.staticImage, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        
+        <div class='col-sm-4'>
+        {% if (form_errors(form.animatedImage)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.animatedImage) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.animatedImage) }}</div>
+                {{ form_widget(form.animatedImage, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class='col-sm-4'>
+        {% if (form_errors(form.audio)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.audio) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.audio) }}</div>
+                {{ form_widget(form.audio, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class='row'>
+        <div class='col-sm-4'>
+        {% if (form_errors(form.audioVisual)) %}
+            <div class="input-group">
+                <div class="input-group-addon alert-danger">{{ form_errors(form.audioVisual) }}</div>
+            </div>
+        {% endif %}
+            <div class="input-group">
+                <div class="input-group-addon">{{ form_label(form.audioVisual) }}</div>
+                {{ form_widget(form.audioVisual, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class='col-sm-4'>    
+            <div class="input-group">
+                <div class="input-group-addon">Icon</div>
+                {{ form_widget(form.icon, {'attr': {'class': 'form-control', 'width':'110px'}}) }}
+            </div>
+        </div>
+        <div class='col-sm-4'>    
+            <div class="input-group" id="icon">
+                <img class="navbar-right" width="130px" src="{{ asset('images/logo.jpg') }}"/> 
+
+            </div>
+        </div>
+        
+    </div>
+    <br>
+    <div class='row'>
+        <div class='col-sm-4'>    
+            <div class="input-group" style="opacity: 0;">
+                <div class="input-group-addon">Latitude</div>
+                {{ form_widget(form.latitude, {'attr': {'class': 'form-control', 'width':'110px', 'readonly':'true'}, 'id':'us2-lat'}) }}
+                
+            </div>
+        </div>
+        <div class='col-sm-4'>    
+            <div class="input-group" style="opacity: 0;">
+                <div class="input-group-addon">Logitude</div>
+                {{ form_widget(form.longitude, {'attr': {'class': 'form-control', 'readonly':'true'}, 'id':'us2-lon'}) }}
+            </div>
+        </div>
+        <div class="col-sm-4">    
+            <div class="input-group">
+                <div class="input-group-addon">Category Instance</div>
+                {{ form_widget(form.categoryInstance, {'attr': {'class': 'form-control', 'width':'110px'}}) }}
+            </div>
+        </div>
+    </div>
+    
+</fieldset>
+<br>
+
+        
+        <div id="us2" style="width: 1200px; height: 600px;"></div>
+        <br>
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-lg'}}) }}
+
+    {{ form_end(form) }}
+        <div class="clearfix">&nbsp;</div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <script>
+        $('#us2').locationpicker({
+            location: {
+                latitude: 5.15242437752303,
+                longitude: -2.7470703125
+            },
+            radius: 0,
+            inputBinding: {
+                latitudeInput: $('#us2-lat'),
+                longitudeInput: $('#us2-lon'),
+                radiusInput: $('#us2-radius'),
+                locationNameInput: $('#us2-address')
+            },
+            enableAutocomplete: true
+        });
+    </script>
+
+                
+        <footer>
+            <p class="pull-right"><a href="#start">Back to top</a></p>
+
+            
+        </footer>
+    </div>
+</body>
+
+</html>

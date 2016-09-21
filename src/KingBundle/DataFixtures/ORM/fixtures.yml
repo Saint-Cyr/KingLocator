@@ -1,35 +1,122 @@
+#This file content the fake data (fixtures) for test purpose. Notice that theire coordonnates are right following is the description based on
+# the data model:
+# >>>>>CATEGORY (2)
+# - Religeouse
+# - Bank
+# >>>>>CATEGORYINSTANCE(2)
+# - Ecobank (Religeouse)
+# - ICGC (Bank)
+# >>>>>ICON(5)
+#---------Ecobank--------
+# 1- Ecobank-ATM
+# 2- Ecobank-Branch
+# 3- Ecobank-ATM & Branch
+#--------ICGC-----------
+# 4- ICGC-Church
+# 5- ICGC-Conv-Family
+# >>>>>INTEREST(6)
+# --------Ecobank---------
+# 1- Branch of 18 Junction--link to the icon:Ecobank-Branch
+# 2- Ecobank ATM Teshie Rd. Accra, Ghana--link to the icon:Ecobank-ATM
+# 3- Ecobank Branch & ATM East Airport--link to the icon:Ecobank-ATM & Branch
+# -------ICGC------------
+# 4- ICGC Calvary Temple
+# 5- ICGC Christ Temple
+# 6- ICGC Comm. 19 Conv-Family
+# 7- ICGC Mamprobi Conv-Family
+KingBundle\Entity\Category:
+    category1:
+        name: Religeouse
+    category2:
+        name: Bank
+        
 KingBundle\Entity\CategoryInstance:
     categoryInstance1:
-        name: Category Instance 1
+        name: ICGC
+        description: Evangelical, charismatic church headed by Dr. Mensa Otabil. Accra, Ghana.
+        logo: icgc.jpg
+    categoryInstance2:
+        name: Ecobank
+        description: A regional commercial bank operating in many African countries.
+        logo: ecobank.jpg
         
 KingBundle\Entity\Interest:
-    interest2:
+    interest1:
         name: Ecobank ATM Teshie Rd. Accra, Ghana
         latitude: 5.588
         longitude: -0.099
         officialAddress: Teshie Rd, Accra, Ghana
-        categoryInstance: "@categoryInstance1"
-        logo: "@logo1"
+        categoryInstance: "@categoryInstance2"
+        icon: "@icon1"
         
-    interest1:
+    interest2:
         name: Branch of 18 Junction
         latitude: 5.628
         longitude: -0.079
         officialAddress: Rd Leading to Spintex-Sakumono, Ghana
-        categoryInstance: "@categoryInstance1"
-        logo: "@logo1"
+        categoryInstance: "@categoryInstance2"
+        icon: "@icon2"
         
     interest3:
         name: Ecobank Branch & ATM East Airport
         latitude: 5.626
         longitude: -0.154
-        officialAddress: Spintex Rd, Accra, Ghana
+        officialAddress: Spintex Rd, Ghana
+        categoryInstance: "@categoryInstance2"
+        icon: "@icon3"
+    
+    interest4:
+        name: ICGC Calvary Temple
+        latitude: 5.624
+        longitude: -0.073
+        officialAddress: Spintex Rd, Ghana
         categoryInstance: "@categoryInstance1"
-        logo: "@logo1"
+        icon: "@icon4"
+    
+    interest5:
+        name: ICGC Christ Temple
+        latitude: 5.554
+        longitude: -0.230
+        officialAddress: Ring Rd W Rd, Accra, Ghana
+        categoryInstance: "@categoryInstance1"
+        icon: "@icon4"
         
-KingBundle\Entity\Logo:
-    logo1:
-        name: logo1.png
+    interest6:
+        name: ICGC Comm. 19 Conv-Family
+        latitude: 5.653
+        longitude: -0.062
+        officialAddress: Guava Cres, Tema New Town, Ghana
+        categoryInstance: "@categoryInstance1"
+        icon: "@icon5"
+    
+    interest7:
+        name: ICGC Mamprobi Conv-Family
+        latitude: 5.536
+        longitude: -0.242
+        officialAddress: Kpakpo Briamah St, Accra, Ghana
+        categoryInstance: "@categoryInstance1"
+        icon: "@icon5"
+        
+KingBundle\Entity\Icon:
+    icon1:
+        name: 1.jpg
+        nickName: Ecobank-ATM
+        categoryInstance: "@categoryInstance2"
+    icon2:
+        name: 2.jpg
+        nickName: Ecobank-Branch
+        categoryInstance: "@categoryInstance2"
+    icon3:
+        name: 3.jpg
+        nickName: Ecobank-Branch & ATM
+        categoryInstance: "@categoryInstance2"
+    icon4:
+        name: 4.jpg
+        nickName: ICGC Church
+        categoryInstance: "@categoryInstance1"
+    icon5:
+        name: 5.jpg
+        nickName: ICGC-Conv-Family
         categoryInstance: "@categoryInstance1"
         
         

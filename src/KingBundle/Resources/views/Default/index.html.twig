@@ -44,7 +44,7 @@
         var icons = {
         {% for interest in interests %}
             {{ interest.id }}: {
-            icon: '{{ asset('images/eco.jpg') }}'
+            icon: '{{ asset('upload/icon/'~interest.icon.name) }}'
           },
         {% endfor %}
          
@@ -152,25 +152,15 @@
       <!-- Menu-4 -->
       <br>
       
-        
-      <!--<div class="menu_5">
-		<ul>
-			<li class="men_5l"><a href="#"><span><img src="{{ asset('images/menu_5_1.PNG') }}" alt=""></span> <p>Edit--</p></a></li>
-			<li class="men_5_active"><a href="#"><span><img src="{{ asset('images/menu_5_2.png') }}" alt=""></span> <p>Components</p></a></li>
-			<li><a href="#"><span><img src="{{ asset('images/menu_5_3.png') }}" alt=""></span> <p>Contact</p></a></li>
-			<li><a href="#"><span><img src="{{ asset('images/menu_5_4.png') }}" alt=""></span> <p>Add</p></a></li>
-			<li class="men_52"><a href="#"><span><img src="{{ asset('images/menu_5_3.png') }}" alt=""></span> <p>Contact</p></a></li>
-		</ul>
-	</div>-->
   </div>
    
-  <!-- Modal -->
   <!-- Modal HTML -->
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <img src="{{ asset('images/1.gif') }}" class="img-responsive center-block" />
                 <!-- Content will be loaded here from "remote.php" file -->
+                -------------content goes here---------------
             </div>
         </div>
     </div>

@@ -69,9 +69,9 @@ class CategoryInstance
     private $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="KingBundle\Entity\Logo", mappedBy="categoryInstance")
+     * @ORM\OneToMany(targetEntity="KingBundle\Entity\Icon", mappedBy="categoryInstance")
      */
-    private $logos;
+    private $icons;
     
     
     /**
@@ -161,30 +161,6 @@ class CategoryInstance
     }
 
     /**
-     * Set logo
-     *
-     * @param string $logo
-     *
-     * @return CategoryInstance
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Get logo
-     *
-     * @return string
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
      * Set headOfficeAdress
      *
      * @param string $headOfficeAdress
@@ -238,7 +214,6 @@ class CategoryInstance
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime("now"));
-        $this->logos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -266,36 +241,60 @@ class CategoryInstance
     }
 
     /**
-     * Add logo
+     * Set logo
      *
-     * @param \KingBundle\Entity\Logo $logo
+     * @param string $logo
      *
      * @return CategoryInstance
      */
-    public function addLogo(\KingBundle\Entity\Logo $logo)
+    public function setLogo($logo)
     {
-        $this->logos[] = $logo;
+        $this->logo = $logo;
 
         return $this;
     }
 
     /**
-     * Remove logo
+     * Get logo
      *
-     * @param \KingBundle\Entity\Logo $logo
+     * @return string
      */
-    public function removeLogo(\KingBundle\Entity\Logo $logo)
+    public function getLogo()
     {
-        $this->logos->removeElement($logo);
+        return $this->logo;
     }
 
     /**
-     * Get logos
+     * Add icon
+     *
+     * @param \KingBundle\Entity\Icon $icon
+     *
+     * @return CategoryInstance
+     */
+    public function addIcon(\KingBundle\Entity\Icon $icon)
+    {
+        $this->icons[] = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Remove icon
+     *
+     * @param \KingBundle\Entity\Icon $icon
+     */
+    public function removeIcon(\KingBundle\Entity\Icon $icon)
+    {
+        $this->icons->removeElement($icon);
+    }
+
+    /**
+     * Get icons
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getLogos()
+    public function getIcons()
     {
-        return $this->logos;
+        return $this->icons;
     }
 }

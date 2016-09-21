@@ -1,3 +1,4 @@
+
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -14,7 +15,15 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
-
+    interest_static_image_directory: '%kernel.root_dir%/../web/upload/interest/staticImage'
+    interest_animated_image_directory: '%kernel.root_dir%/../web/upload/interest/animatedImage'
+    interest_audio_directory: '%kernel.root_dir%/../web/upload/interest/audio'
+    interest_audio_visual_directory: '%kernel.root_dir%/../web/upload/interest/audioVisual'
+    
+    category_instance_image_directory: '%kernel.root_dir%/../web/upload/categoryInstance/image'
+    category_image_directory: '%kernel.root_dir%/../web/upload/category/image'
+    icon_image_directory: '%kernel.root_dir%/../web/upload/icon'
+    
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }

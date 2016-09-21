@@ -19,13 +19,17 @@ services:
         arguments: [~, KingBundle\Entity\Interest, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Interest }
-
-    king.admin.logo:
-        class: KingBundle\Admin\LogoAdmin
-        arguments: [~, KingBundle\Entity\Logo, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Logo }
     
     king.default_handler:
         class: KingBundle\Service\DefaultHandler
         arguments: ["@doctrine.orm.entity_manager"]
+        
+    king.upload_handler:
+        class: KingBundle\Service\UploadHandler
+        arguments: ['%interest_static_image_directory%', '%interest_animated_image_directory%', '%interest_audio_directory%', '%interest_audio_visual_directory%', '%category_instance_image_directory%', '%category_image_directory%', '%icon_image_directory%']
+
+    king.admin.icon:
+        class: KingBundle\Admin\IconAdmin
+        arguments: [~, KingBundle\Entity\Icon, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Icon }

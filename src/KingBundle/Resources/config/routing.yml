@@ -18,4 +18,16 @@ king_video_result:
     path:  /videoResult
     defaults: { _controller: KingBundle:Default:videoResult }
     
+king_search:
+    path:  /wonsano-search
+    defaults: { _controller: KingBundle:Default:search }
+    
+king_search_content:
+    path:  /wonsano-search-content
+    defaults: { _controller: KingBundle:Default:searchContent }
+
+king_icon_ajax_content:
+    path:  /icon-ajax
+    defaults: { _controller: KingBundle:Default:iconAjax }
+    
 

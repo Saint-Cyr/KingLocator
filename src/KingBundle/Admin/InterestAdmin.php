@@ -34,8 +34,15 @@ class InterestAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
+            ->add('icon')
+            ->add('categoryInstance')
             ->add('latitude')
+            ->add('staticImageExtension')
+            ->add('animatedImageExtension')
+            ->add('audioExtension')
+            ->add('audioVisualExtension')
             ->add('longitude')
+            ->add('staticImage')
             ->add('officialAddress')
             ->add('localAddress')
             ->add('createdAt')
@@ -55,7 +62,10 @@ class InterestAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
+            ->add('staticImageExtension')
+            ->add('animatedImageExtension')
+            ->add('audioExtension')
+            ->add('audioVisualExtension')
             ->add('name')
             ->add('latitude')
             ->add('longitude')

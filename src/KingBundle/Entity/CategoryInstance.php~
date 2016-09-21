@@ -69,10 +69,11 @@ class CategoryInstance
     private $category;
     
     /**
-     * @ORM\OneToMany(targetEntity="KingBundle\Entity\Logo", mappedBy="categoryInstance")
+     * @ORM\OneToMany(targetEntity="KingBundle\Entity\Icon", mappedBy="categoryInstance")
      */
-    private $logos;
-
+    private $icons;
+    
+    
     /**
      * Get id
      *
@@ -81,6 +82,10 @@ class CategoryInstance
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function __toString() {
+        return $this->name;
     }
 
     /**
@@ -156,30 +161,6 @@ class CategoryInstance
     }
 
     /**
-     * Set logo
-     *
-     * @param string $logo
-     *
-     * @return CategoryInstance
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Get logo
-     *
-     * @return string
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
      * Set headOfficeAdress
      *
      * @param string $headOfficeAdress
@@ -226,5 +207,36 @@ class CategoryInstance
     {
         return $this->headOfficePhone;
     }
-}
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime("now"));
+    }
 
+    /**
+     * Set category
+     *
+     * @param \KingBundle\Entity\Category $category
+     *
+     * @return CategoryInstance
+     */
+    public function setCategory(\KingBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \KingBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+}
