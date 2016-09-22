@@ -38,4 +38,20 @@ king_icon_ajax_content:
     path:  /icon-ajax
     defaults: { _controller: KingBundle:Default:iconAjax }
     
+########Implementation with AngularJs##############
+king_step_one:
+    path: /step-one
+    defaults: { _controller: KingBundle:Locator:stepOne }
+    
+king_step_two:
+    path: /step-two/{id}
+    defaults: { _controller: KingBundle:Locator:stepTwo }
 
+king_step_three:
+    path: /step-two/{id}/{lat}/{long}
+    defaults: { _controller: KingBundle:Locator:stepThree }
+    
+king_category_instances:
+    path: /category-instances
+    defaults: { _controller: KingBundle:Locator:CategoryInstances }
+    

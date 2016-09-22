@@ -34,7 +34,6 @@ class DefaultController extends Controller
     
     public function allResultAction($categoryInstanceId)
     {
-        
         //Get the entity manager
         $em = $this->getDoctrine()->getManager();
         //Get the categoryInstance from the DB
