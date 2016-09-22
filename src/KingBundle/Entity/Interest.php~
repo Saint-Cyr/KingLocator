@@ -54,30 +54,30 @@ class Interest
     /**
      * @var string
      *
-     * @ORM\Column(name="staticImageExtension", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="staticImageName", type="string", length=255, unique=true, nullable=true)
      */
-    private $staticImageExtension;
+    private $staticImageName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="animatedImageExtension", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="animatedImageName", type="string", length=255, unique=false, nullable=true)
      */
-    private $animatedImageExtension;
+    private $animatedImageName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="audioExtension", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="audioName", type="string", length=255, unique=false, nullable=true)
      */
-    private $audioExtension;
+    private $audioName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="audioVisualExtension", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="audioVisualName", type="string", length=255, unique=false, nullable=true)
      */
-    private $audioVisualExtension;
+    private $audioVisualName;
     
     /**
      * @var string

@@ -26,7 +26,7 @@ class DefaultHandler
      * @param K|M $unit Kilometer or Miles
      * @param int $max total number of result
      */
-    public function getMostCloser(array $interests, array $currentLocation, $unit)
+    public function getMostCloser($interests, array $currentLocation, $unit)
     {
         //Set distance for every interest
         foreach ($interests as $int){

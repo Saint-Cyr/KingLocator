@@ -16,13 +16,10 @@ class InterestAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
+            ->add('categoryInstance')
             ->add('name')
-            ->add('latitude')
-            ->add('longitude')
             ->add('officialAddress')
             ->add('localAddress')
-            ->add('createdAt')
         ;
     }
 
@@ -37,10 +34,10 @@ class InterestAdmin extends AbstractAdmin
             ->add('icon')
             ->add('categoryInstance')
             ->add('latitude')
-            ->add('staticImageExtension')
-            ->add('animatedImageExtension')
-            ->add('audioExtension')
-            ->add('audioVisualExtension')
+            ->add('staticImageName')
+            ->add('animatedImageName')
+            ->add('audioName')
+            ->add('audioVisualName')
             ->add('longitude')
             ->add('staticImage')
             ->add('officialAddress')
@@ -62,11 +59,12 @@ class InterestAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('staticImageExtension')
-            ->add('animatedImageExtension')
-            ->add('audioExtension')
-            ->add('audioVisualExtension')
+            ->add('staticImageName')
+            ->add('animatedImageName')
+            ->add('audioName')
+            ->add('audioVisualName')
             ->add('name')
+            ->add('whatsApp')
             ->add('latitude')
             ->add('longitude')
             ->add('officialAddress')

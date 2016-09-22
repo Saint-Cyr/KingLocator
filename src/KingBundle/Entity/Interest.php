@@ -54,30 +54,30 @@ class Interest
     /**
      * @var string
      *
-     * @ORM\Column(name="staticImageExtension", type="string", length=255, unique=true, nullable=true)
+     * @ORM\Column(name="staticImageName", type="string", length=255, unique=true, nullable=true)
      */
-    private $staticImageExtension;
+    private $staticImageName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="animatedImageExtension", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="animatedImageName", type="string", length=255, unique=false, nullable=true)
      */
-    private $animatedImageExtension;
+    private $animatedImageName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="audioExtension", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="audioName", type="string", length=255, unique=false, nullable=true)
      */
-    private $audioExtension;
+    private $audioName;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="audioVisualExtension", type="string", length=255, unique=false, nullable=true)
+     * @ORM\Column(name="audioVisualName", type="string", length=255, unique=false, nullable=true)
      */
-    private $audioVisualExtension;
+    private $audioVisualName;
     
     /**
      * @var string
@@ -135,7 +135,7 @@ class Interest
     private $localAddress;
     
     /**
-     * @ORM\ManyToOne(targetEntity="KingBundle\Entity\CategoryInstance")
+     * @ORM\ManyToOne(targetEntity="KingBundle\Entity\CategoryInstance", inversedBy="interests")
      * @ORM\JoinColumn(nullable=false)
      */
     private $categoryInstance;
@@ -552,98 +552,98 @@ class Interest
     }
 
     /**
-     * Set staticImageExtension
+     * Set staticImageName
      *
-     * @param string $staticImageExtension
+     * @param string $staticImageName
      *
      * @return Interest
      */
-    public function setStaticImageExtension($staticImageExtension)
+    public function setStaticImageName($staticImageName)
     {
-        $this->staticImageExtension = $staticImageExtension;
+        $this->staticImageName = $staticImageName;
 
         return $this;
     }
 
     /**
-     * Get staticImageExtension
+     * Get staticImageName
      *
      * @return string
      */
-    public function getStaticImageExtension()
+    public function getStaticImageName()
     {
-        return $this->staticImageExtension;
+        return $this->staticImageName;
     }
 
     /**
-     * Set animatedImageExtension
+     * Set animatedImageName
      *
-     * @param string $animatedImageExtension
+     * @param string $animatedImageName
      *
      * @return Interest
      */
-    public function setAnimatedImageExtension($animatedImageExtension)
+    public function setAnimatedImageName($animatedImageName)
     {
-        $this->animatedImageExtension = $animatedImageExtension;
+        $this->animatedImageName = $animatedImageName;
 
         return $this;
     }
 
     /**
-     * Get animatedImageExtension
+     * Get animatedImageName
      *
      * @return string
      */
-    public function getAnimatedImageExtension()
+    public function getAnimatedImageName()
     {
-        return $this->animatedImageExtension;
+        return $this->animatedImageName;
     }
 
     /**
-     * Set audioExtension
+     * Set audioName
      *
-     * @param string $audioExtension
+     * @param string $audioName
      *
      * @return Interest
      */
-    public function setAudioExtension($audioExtension)
+    public function setAudioName($audioName)
     {
-        $this->audioExtension = $audioExtension;
+        $this->audioName = $audioName;
 
         return $this;
     }
 
     /**
-     * Get audioExtension
+     * Get audioName
      *
      * @return string
      */
-    public function getAudioExtension()
+    public function getAudioName()
     {
-        return $this->audioExtension;
+        return $this->audioName;
     }
 
     /**
-     * Set audioVisualExtension
+     * Set audioVisualName
      *
-     * @param string $audioVisualExtension
+     * @param string $audioVisualName
      *
      * @return Interest
      */
-    public function setAudioVisualExtension($audioVisualExtension)
+    public function setAudioVisualName($audioVisualName)
     {
-        $this->audioVisualExtension = $audioVisualExtension;
+        $this->audioVisualName = $audioVisualName;
 
         return $this;
     }
 
     /**
-     * Get audioVisualExtension
+     * Get audioVisualName
      *
      * @return string
      */
-    public function getAudioVisualExtension()
+    public function getAudioVisualName()
     {
-        return $this->audioVisualExtension;
+        return $this->audioVisualName;
     }
 }

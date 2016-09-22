@@ -11,6 +11,50 @@
         padding: 0;
         height: 100%;
       }
+      
+      body {
+    padding-top: 50px;
+}
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 750px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+}
     </style>
     <link href="{{ asset('css/style.css') }}" rel='stylesheet' type='text/css' />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
@@ -42,9 +86,9 @@
         
         var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
         var icons = {
-        {% for interest in interests %}
+        {% for interest in categoryInstances %}
             {{ interest.id }}: {
-            icon: '{{ asset('upload/icon/'~interest.icon.name) }}'
+            icon: '{{ asset('images/eco.jpg') }}'
           },
         {% endfor %}
          
@@ -59,9 +103,9 @@
         }
 
         var features = [
-        {% for interest in interests %}
+        {% for interest in categoryInstances %}
         {
-            position: new google.maps.LatLng({{ interest.latitude }}, {{ interest.longitude }}),
+            position: new google.maps.LatLng(5.55, -0.23),
             type: '{{ interest.id }}'
           },
         {% endfor %}
@@ -147,34 +191,103 @@
   
   <br>
   <br>
-  <div class="container">
-  <div class="row" id="toHide">
-      <!-- Menu-4 -->
-      <br>
-      
-  </div>
-   
-  <!-- Modal HTML -->
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <img src="{{ asset('images/1.gif') }}" class="img-responsive center-block" />
-                <!-- Content will be loaded here from "remote.php" file -->
-                -------------content goes here---------------
-            </div>
-        </div>
-    </div>
+  <br>
+  <br>
+  <!--Search function using AJAX-->
+  <script>
+    (function($){
+        
+        $(function(){
+           
+           $("#search").click(function(){
+                var keyWord;
+                keyWord = $("#keyWord").val();
+                alert(keyWord);
+            });
+           
+        });
+
+        // Run right away
+    })(jQuery);
+    
+    $(document).ready(function(){
+        $('#keyWord').keyup(function(){
+            var s = $(this).val();
+            console.log(s);
+            if(s.length >= 3){
+                //display the loading image
+                $('#mainPage').html('<img src="{{ asset('images/loader.gif') }}" style="margin:10%; padding-left: 11cm;" alt="" >');
+                $.ajax({
+                    url: "http://localhost/KingLocator/web/app_dev.php/wonsano-search-content",
+                    type: "get", //send it through get method
+                    data:{keyWord:s},
+                    success: function(response) {
+                      $('#mainPage').html(response);
+                    },
+                    error: function(xhr) {
+                    alert('An error occur when request page with AJAX.');
+                }
+              });
+                //We can send the string (s) to the server for AJAX
+            }
+        });
+    });
+  </script>
   
-  <div class="row" id="result">
-      
-  <img src="{{ asset('images/1.gif') }}" class="img-responsive center-block" />
-</div>
+  
+  <div class="container">
+	<div class="row">
+            <div class="col-md-12">
+            
+            <div class="input-group" id="adv-search">
+                    <input autofocus type="text" class="form-control" placeholder="Type a name of an interest like ICGC or Ecobank" id="keyWord"/>
+                    
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary" id="search">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            
+                
+        <div class="row" id="mainPage">
+            
+            <h4 class="page-header center"></h4>
+        {% for object in categoryInstances %}
+            <div class="col-xs-18 col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <a href="#"><img src="{{ asset('logos/'~object.logo) }}" alt=""></a>
+                    <div class="caption">
+                      <h4>{{ object.name }}</h4>
+                      <p>{{ object.description }}</p>
+                      <p><a href="#" class="btn btn-info btn-xs" role="button">Find it</a> <a href="#" class="btn btn-default btn-xs" role="button">Learn more</a></p>
+                  </div>
+                </div>
+            </div>
+        {% endfor %}
+            
+        </div>
 
+        <hr>
 
+        <!-- Footer -->
+        <footer class="navbar-fixed-bottom">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Wonsano 2017</p>
+                </div>
+            </div>
+        </footer>
 
-  </div>
+    
+    <!-- /.container -->
+          </div>
+        </div>
+	</div>
    
 
-    <div id="map_canvas"></div>
+    <!--<div id="map_canvas"></div>-->
   </body>
 </html>

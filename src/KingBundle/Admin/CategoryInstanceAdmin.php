@@ -16,13 +16,7 @@ class CategoryInstanceAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
             ->add('name')
-            ->add('createdAt')
-            ->add('description')
-            ->add('logo')
-            ->add('headOfficeAdress')
-            ->add('headOfficePhone')
         ;
     }
 
@@ -34,9 +28,7 @@ class CategoryInstanceAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('createdAt')
-            ->add('description')
-            ->add('logo')
+            ->add('logo', null, array('template' => 'KingBundle:Default:list.html.twig'))
             ->add('headOfficeAdress')
             ->add('headOfficePhone')
             ->add('_action', 'actions', array(
@@ -55,12 +47,13 @@ class CategoryInstanceAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            
+        ->with('Details', array('class' => 'col-md-8'))
             ->add('name')
-            ->add('description')
-            ->add('logo')
+            ->add('description', 'textarea', array('attr' => array('class' => 'ckeditor')))
             ->add('headOfficeAdress')
             ->add('headOfficePhone')
+            ->add('file', 'file', array('required' => true))
+        ->end()
         ;
     }
 
@@ -78,5 +71,20 @@ class CategoryInstanceAdmin extends AbstractAdmin
             ->add('headOfficeAdress')
             ->add('headOfficePhone')
         ;
+    }
+    
+    public function prePersist($image)
+    {
+        $this->manageFileUpload($image);
+    }
+    public function preUpdate($image)
+    {
+        $this->manageFileUpload($image);
+    }
+    private function manageFileUpload($image)
+    {
+        if ($image->getFile()) {
+            $image->refreshUpdated();
+        }
     }
 }

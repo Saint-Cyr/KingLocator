@@ -3,12 +3,14 @@
 namespace KingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * CategoryInstance
  *
  * @ORM\Table(name="category_instance")
  * @ORM\Entity(repositoryClass="KingBundle\Repository\CategoryInstanceRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class CategoryInstance
 {
@@ -20,6 +22,15 @@ class CategoryInstance
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    private $file;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated;
 
     /**
      * @var string
@@ -27,6 +38,11 @@ class CategoryInstance
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="KingBundle\Entity\Interest", mappedBy="categoryInstance")
+     */
+    private $interests;
 
     /**
      * @var \DateTime
@@ -45,7 +61,7 @@ class CategoryInstance
     /**
      * @var string
      *
-     * @ORM\Column(name="logo", type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true, unique=false)
      */
     private $logo;
 
@@ -72,6 +88,69 @@ class CategoryInstance
      * @ORM\OneToMany(targetEntity="KingBundle\Entity\Icon", mappedBy="categoryInstance")
      */
     private $icons;
+    
+    /**
+    * Sets file.
+    *
+    * @param UploadedFile $file
+    */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+    /**
+    * Get file.
+    *
+    * @return UploadedFile
+    */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+    * @ORM\PostPersist()
+    * @ORM\PostUpdate()
+    */
+    public function lifecycleFileUpload()
+    {
+        $this->upload();
+    }
+    
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function refreshUpdated()
+    {
+        $this->setUpdated(new \DateTime());
+    }
+    
+    /**
+     * @ORM\PreRemove()
+     */
+    public function removeUPdate()
+    {
+        //Check whether the file exists first
+        if (file_exists(getcwd().'/upload/categoryInstance/'.$this->getName())){
+            //Remove it
+            @unlink(getcwd().'/upload/categoryInstance/'.$this->getName());
+            
+        }
+        
+        return;
+    }
+    
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+        // move takes the target directory and target filename as params
+        $this->getFile()->move(getcwd().'/upload/categoryInstance', $this->getId().'.'.$this->getFile()->guessExtension());
+        // clean up the file property as you won't need it anymore
+        $this->setFile(null);
+    }
     
     
     /**
@@ -241,27 +320,29 @@ class CategoryInstance
     }
 
     /**
-     * Set logo
+     * Set image
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     * @param string $image
      *
-     * @param string $logo
-     *
-     * @return CategoryInstance
      */
-    public function setLogo($logo)
+    public function setLogo($image)
     {
-        $this->logo = $logo;
-
+        if($this->getFile() !== null){
+            $this->logo = $this->getFile()->guessExtension();
+        }
+        
         return $this;
     }
-
+    
     /**
-     * Get logo
+     * Get image
      *
      * @return string
      */
     public function getLogo()
     {
-        return $this->logo;
+        return $this->getId().'.'.$this->logo;
     }
 
     /**
@@ -296,5 +377,63 @@ class CategoryInstance
     public function getIcons()
     {
         return $this->icons;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return CategoryInstance
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Add interest
+     *
+     * @param \KingBundle\Entity\Interest $interest
+     *
+     * @return CategoryInstance
+     */
+    public function addInterest(\KingBundle\Entity\Interest $interest)
+    {
+        $this->interests[] = $interest;
+
+        return $this;
+    }
+
+    /**
+     * Remove interest
+     *
+     * @param \KingBundle\Entity\Interest $interest
+     */
+    public function removeInterest(\KingBundle\Entity\Interest $interest)
+    {
+        $this->interests->removeElement($interest);
+    }
+
+    /**
+     * Get interests
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInterests()
+    {
+        return $this->interests;
     }
 }

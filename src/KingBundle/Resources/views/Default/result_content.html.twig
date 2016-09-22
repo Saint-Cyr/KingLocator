@@ -1,0 +1,27 @@
+<div class="row" id="result">
+        
+ {% for interest in interests|slice(0, 3) %}
+    <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+     <div class="caption">
+         <p><img src="{{ asset('images/l'~loop.index~'.png') }}" width="33px"/> <a style="font-size:20px;"> {{ interest.name|striptags|slice(0, 27) }}</a></p>
+        <ul class="list-group">
+            <li class="list-group-item">
+                
+                <a href="{{ path('king_interest_detail', {'interestId':interest.id}) }}" >
+                    <i class="glyphicon glyphicon-th"></i></a>
+                    {{ interest.officialAddress }}
+            </li>
+            <li class="list-group-item">
+                <a href="{{ path('king_interest_detail', {'interestId':interest.id}) }}" >
+                    <i class="fa fa-film"></i>
+                </a> {{ interest.localAddress }}
+            </li>
+            <li class="list-group-item"><i class="fa fa-whatsapp"></i> 0234 0268 568 006 </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ {% endfor %}
+</div>
+        

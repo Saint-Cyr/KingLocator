@@ -32,51 +32,51 @@ class UploadHandler
         $this->iconDirectory = $iconImage;
     }
     
-    public function uploadInterest($staticImage, $animatedImage, $audio, $audioVisual, $id)
+    public function uploadInterest($staticImage, $animatedImage, $audio, $audioVisual, $fileNames)
     {
         //Upload the Interest files one after another
-        $this->uploadInterestStaticImage($staticImage, $id);
-        $this->uploadInterestAnimatedImage($animatedImage, $id);
-        $this->uploadInterestAudio($audio, $id);
-        $this->uploadInterestAudioVisual($audioVisual, $id);
+        $this->uploadInterestStaticImage($staticImage, $fileNames['staticImage']);
+        $this->uploadInterestAnimatedImage($animatedImage, $fileNames['animatedImage']);
+        $this->uploadInterestAudio($audio, $fileNames['audio']);
+        $this->uploadInterestAudioVisual($audioVisual, $fileNames['audioVisual']);
     }
     
-    public function uploadInterestStaticImage(UploadedFile $file = null, $id)
+    public function uploadInterestStaticImage(UploadedFile $file = null, $fileName)
     {
         if(!$file){
             return;
         }
-        $fileName = $id.'.'.$file->guessExtension();
+        
         $file->move($this->interestStaticImageDirectory, $fileName);
         return $fileName;
     }
     
-    public function uploadInterestAnimatedImage(UploadedFile $file = null, $id)
+    public function uploadInterestAnimatedImage(UploadedFile $file = null, $fileName)
     {
         if(!$file){
             return;
         }
-        $fileName = $id.'.'.$file->guessExtension();
-        $file->move($this->interestAnimatedImageDirectory,  $fileName);
+        
+        $file->move($this->interestAnimatedImageDirectory, $fileName);
         return $fileName;
     }
     
-    public function uploadInterestAudio(UploadedFile $file = null, $id)
+    public function uploadInterestAudio(UploadedFile $file = null, $fileName)
     {
         if(!$file){
             return;
         }
-        $fileName = $id.'.'.$file->guessExtension();
+        
         $file->move($this->interestAudioDirectory, $fileName);
         return $fileName;
     }
     
-    public function uploadInterestAudioVisual(UploadedFile $file = null, $id)
+    public function uploadInterestAudioVisual(UploadedFile $file = null, $fileName)
     {
         if(!$file){
             return;
         }
-        $fileName = $id.'.'.$file->guessExtension();
+        
         $file->move($this->interestAudioVisualDirectory, $fileName);
         return $fileName;
     }

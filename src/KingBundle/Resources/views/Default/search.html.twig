@@ -86,11 +86,11 @@
         
         var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
         var icons = {
-        {% for interest in categoryInstances %}
-            {{ interest.id }}: {
-            icon: '{{ asset('images/eco.jpg') }}'
+        
+            1: {
+            icon: '1.jpg'
           },
-        {% endfor %}
+       
          
         };
 
@@ -103,12 +103,12 @@
         }
 
         var features = [
-        {% for interest in categoryInstances %}
+        
         {
-            position: new google.maps.LatLng(5.55, -0.23),
-            type: '{{ interest.id }}'
+            position: new google.maps.LatLng(-0.2, 5.2),
+            type: 1
           },
-        {% endfor %}
+        
           
         ];
 
@@ -218,7 +218,9 @@
                 //display the loading image
                 $('#mainPage').html('<img src="{{ asset('images/loader.gif') }}" style="margin:10%; padding-left: 11cm;" alt="" >');
                 $.ajax({
-                    url: "http://localhost/KingLocator/web/app_dev.php/wonsano-search-content",
+                    //url: "http://localhost/KingLocator/web/wonsano-search-content",
+                    url: "http://localhost/KingLocator/web/wonsano-search-content" + "?_=" + jQuery.now(),
+                    cache : false,
                     type: "get", //send it through get method
                     data:{keyWord:s},
                     success: function(response) {
@@ -258,11 +260,12 @@
         {% for object in categoryInstances %}
             <div class="col-xs-18 col-sm-6 col-md-3">
                 <div class="thumbnail">
-                    <a href="#"><img src="{{ asset('logos/'~object.logo) }}" alt=""></a>
+                    <a href="{{ path('king_all_result', {'categoryInstanceId':object.id}) }}"><img src="{{ asset('logos/'~object.logo) }}" alt=""></a>
                     <div class="caption">
                       <h4>{{ object.name }}</h4>
                       <p>{{ object.description }}</p>
-                      <p><a href="#" class="btn btn-info btn-xs" role="button">Find it</a> <a href="#" class="btn btn-default btn-xs" role="button">Learn more</a></p>
+                      <p><a href="{{ path('king_all_result', {'categoryInstanceId':object.id}) }}" class="btn btn-info btn-xs" role="button">Find it</a> 
+                          <a href="#" class="btn btn-default btn-xs" role="button">Learn more</a></p>
                   </div>
                 </div>
             </div>
@@ -286,8 +289,6 @@
           </div>
         </div>
 	</div>
-   
-
     <!--<div id="map_canvas"></div>-->
   </body>
 </html>

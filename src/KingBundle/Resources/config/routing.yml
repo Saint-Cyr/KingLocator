@@ -1,6 +1,10 @@
 king_homepage:
     path:     /
-    defaults: { _controller: KingBundle:Default:index }
+    defaults: { _controller: KingBundle:Default:search }
+    
+king_all_result:
+    path:  /all-result/{categoryInstanceId}
+    defaults: { _controller: KingBundle:Default:allResult }
     
 king_register_interest:
     path:    /register
@@ -9,6 +13,10 @@ king_register_interest:
 king_result:
     path:  /result
     defaults: { _controller: KingBundle:Default:result }
+    
+king_interest_detail:
+    path: /interest-detail/{interestId}
+    defaults: { _controller: KingBundle:Default:interestDetail }
 
 king_one_result:
     path:  /oneResult

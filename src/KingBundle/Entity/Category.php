@@ -98,6 +98,11 @@ class Category
     {
         return $this->createdAt;
     }
+    
+    public function __toString() {
+        return $this->name;
+    }
+    
     /**
      * Constructor
      */

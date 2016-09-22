@@ -16,9 +16,7 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
             ->add('name')
-            ->add('createdAt')
         ;
     }
 
@@ -30,7 +28,6 @@ class CategoryAdmin extends AbstractAdmin
         $listMapper
             ->add('id')
             ->add('name')
-            ->add('createdAt')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -47,10 +44,11 @@ class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
-            ->add('name')
-            ->add('createdAt')
-        ;
+            ->with('Details', array('class' => 'col-md-6'))   
+                ->add('name')
+                ->add('createdAt', 'sonata_type_date_picker', array('label' => 'Creation date'))
+            ->end()
+            ;
     }
 
     /**

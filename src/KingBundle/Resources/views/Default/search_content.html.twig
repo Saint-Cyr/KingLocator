@@ -6,7 +6,14 @@
                     <div class="caption">
                       <h4>{{ object.name }}</h4>
                       <p>{{ object.description }}</p>
-                      <p><a href="#" class="btn btn-info btn-xs" role="button">Find it</a> <a href="#" class="btn btn-default btn-xs" role="button">Learn more</a></p>
+                      <p>
+                          <a href="{{ path('king_all_result', {'categoryInstanceId':object.id}) }}" class="btn btn-info btn-xs" role="button">
+                              Find it
+                          </a> 
+                          <a href="#" class="btn btn-default btn-xs" role="button">
+                              Learn more
+                          </a>
+                      </p>
                   </div>
                 </div>
             </div>

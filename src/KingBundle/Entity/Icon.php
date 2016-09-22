@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @ORM\Table(name="icon")
  * @ORM\Entity(repositoryClass="KingBundle\Repository\IconRepository")
- *  @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks
  */
 class Icon
 {
@@ -35,7 +35,7 @@ class Icon
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, unique=false, nullable=true)
      */
     private $name;
     

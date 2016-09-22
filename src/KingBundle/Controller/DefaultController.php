@@ -12,16 +12,40 @@ use KingBundle\Entity\Interest;
 
 class DefaultController extends Controller
 {
+    public function interestDetailAction($interestId)
+    {
+        //Get the entity manager
+        $em = $this->getDoctrine()->getManager();
+        //Get all the interest
+        $interest = $em->getRepository('KingBundle:Interest')->find($interestId);
+        
+        return $this->render('KingBundle:Default:interest_detail.html.twig', array('interest' => $interest));
+    }
+    
     public function indexAction(Request $request)
     {
         //Get the entity manager
         $em = $this->getDoctrine()->getManager();
-        //Get all the types
+        //Get all the interests
         $interests = $em->getRepository('KingBundle:Interest')->findAll();
         
         return $this->render('KingBundle:Default:index.html.twig', array('interests' => $interests));
     }
     
+    public function allResultAction($categoryInstanceId)
+    {
+        
+        //Get the entity manager
+        $em = $this->getDoctrine()->getManager();
+        //Get the categoryInstance from the DB
+        $categoryInstance = $em->getRepository('KingBundle:CategoryInstance')->find($categoryInstanceId);
+        //Get all the interest related to the categoryInstance
+        $interests = $categoryInstance->getInterests();
+        //$interests = $em->getRepository('KingBundle:Interest')->findAll();
+        return $this->render('KingBundle:Default:result.html.twig', array('interests' => $interests, 'categoryInstanceId' => $categoryInstanceId));
+    }
+
+
     public function searchAction()
     {
         //Get the entity manager
@@ -85,6 +109,8 @@ class DefaultController extends Controller
         //$lat = $request->request->get('lat');
         $lat = $request->query->get('lat');
         $long = $request->query->get('long');
+        $categoryInstanceId = $request->query->get('ID');
+        
         //Set the current location
         $currentLocation['lat'] = $lat;
         $currentLocation['long'] = $long;
@@ -92,12 +118,20 @@ class DefaultController extends Controller
         $defaultHandler = $this->get('king.default_handler');
         //Get the entity manager
         $em = $this->getDoctrine()->getManager();
+        //Get the categoryInstance from the which the visitor wants to get the interests
+        $categoryInstance = $em->getRepository('KingBundle:CategoryInstance')->find($categoryInstanceId);
         //Get all the interest
-        $unsortedInterests = $em->getRepository('KingBundle:Interest')->findAll();
-        //Sort all the interests
-        $sortedInterests = $defaultHandler->getMostCloser($unsortedInterests, $currentLocation, 'K');
         
-        return $this->render('KingBundle:Default:result.html.twig', array('interests' => $sortedInterests));
+        $unsortedInterests = $categoryInstance->getInterests();
+        //Put the items within a simple array for the service handler to undertand it easely
+        foreach ($unsortedInterests as $item){
+            $_unsortedInterests[] = $item;
+        }
+        
+        //Sort all the interests
+        $sortedInterests = $defaultHandler->getMostCloser($_unsortedInterests, $currentLocation, 'K');
+        
+        return $this->render('KingBundle:Default:result_content.html.twig', array('interests' => $sortedInterests));
     }
     
     public function registerInterestAction(Request $request)
@@ -117,21 +151,35 @@ class DefaultController extends Controller
             $animatedImage = $interest->getAnimatedImage();
             $audio = $interest->getAudio();
             $audioVisual = $interest->getAudioVisual();
+            //array of names to passe to the service in ordert for it to name the files when moving them to theire location
+            $fileNames = array();
+            //hydrate the object with the filename
+            $fileName = md5(uniqid()).'.'.$staticImage->guessExtension();
+            $fileNames['staticImage'] = $fileName;
+            $interest->setStaticImageName($fileName);
             
-            //hydrate the object field "extension"
-            $interest->setStaticImageExtension($staticImage->guessClientExtension());
-            $interest->setAnimatedImageExtension($animatedImage->guessClientExtension());
-            $interest->setAudio($audio->guessClientExtension());
-            $interest->setAudioVisual($audioVisual->guessClientExtension());
-            //Persist in order to be able to get the ID first
-            $em->persist($interest);
-            $em->flush();
+            
+                    
+            $fileName = md5(uniqid()).'.'.$animatedImage->guessExtension();
+            $fileNames['animatedImage'] = $fileName;
+            $interest->setAnimatedImageName($fileName);
+            
+            $fileName = md5(uniqid()).'.'.$audio->guessExtension();
+            $fileNames['audio'] = $fileName;
+            $interest->setAudioName($fileName);
+            
+            $fileName = md5(uniqid()).'.'.$audioVisual->guessExtension();
+            $fileNames['audioVisual'] = $fileName;
+            $interest->setAudioVisualName($fileName);
             
             //Get the upload service handler
             $uploadHandler = $this->get('king.upload_handler');
             //Upload all the files in theire repective directories
-            $uploadHandler->uploadInterest($staticImage, $animatedImage, $audio, $audioVisual, $interest->getId());
-            //$this->get('king.upload_handler')->uploadInterestStaticImage($file, $interest->getId());
+            $uploadHandler->uploadInterest($staticImage, $animatedImage, $audio, $audioVisual, $fileNames);
+            
+            //Persist in order to be able to get the ID first
+            $em->persist($interest);
+            $em->flush();
             
             $request->getSession()
                     ->getFlashBag()

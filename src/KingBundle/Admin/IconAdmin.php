@@ -32,7 +32,8 @@ class IconAdmin extends AbstractAdmin
             ->add('id')
             ->add('fileExtension')
             ->add('nickName')
-            ->add('name', null, array('template' => 'KingBundle:Default:list.html.twig'))
+            ->add('name')
+            //->add('name', null, array('template' => 'KingBundle:Default:list_icon.html.twig'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
