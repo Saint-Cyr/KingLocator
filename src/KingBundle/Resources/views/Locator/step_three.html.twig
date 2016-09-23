@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="AngularGoogleMap" >
+    <head>
+        <meta charset="utf-8">
+        <title>Wonsano</title>
+
+        <link href="{{ asset('css/style2.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel='stylesheet' type='text/css' />
+
+        <!-- AngularJS -->
+        <script src="{{ asset('js/lib/angularjs.min.js?v=1.2.26') }}"></script>
+
+        <!-- Google Maps -->
+        <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwayCMyzNJVNicc5WK-Jdf5wd1kJpeHkE&callback=initMap"></script>
+
+        <!-- angular-goole-maps -->
+        <script src="{{ asset('js/lib/lodash.underscore.min.js?v=2.4.1') }}"></script>
+        <script src="{{ asset('js/lib/angular-google-maps.min.js?v=1.2.2') }}"></script>
+
+        <!-- Custom angular module -->
+        <script src="{{ asset('js/map.js?v=1.0') }}"></script>
+    </head>
+    <body ng-controller="MapCtrl">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+              <br>
+
+              <div class="col-sm-6 col-md-4">
+                  <span class="menu_3_left" ></span>
+                  <div class="menu_middle">
+
+                  </div>
+              </div>
+              <img class="navbar-right" width="130px" src="{{ asset('images/logo.jpg') }}"/> 
+            </div>
+        </nav>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        
+        <div class="container">
+	<div class="row">
+            <div class="col-md-12">
+            
+            <div class="input-group" id="adv-search">
+                    <input autofocus type="text" class="form-control" placeholder="Type a name of an interest like ICGC or Ecobank" id="keyWord"/>
+                    
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary" id="search">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            
+        
+        <div class="row" id="mainPage">
+            
+            <h4 class="page-header center"></h4>
+            {% verbatim %}
+            <div ng-repeat="object in categoryInstances" class="col-xs-18 col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <a href="#"><img src="{{ asset('images/logo.jpg') }}" alt=""></a>
+                    <div class="caption">
+                        
+                      <h4> {{ object.name }}</h4>
+                      
+                      <p>{{ object.description }}</p>
+                      <p><a href="{{ object.url }}" class="btn btn-info btn-xs" role="button">Find it</a> 
+                          <a href="#" ng-click="callServer(object.url)" class="btn btn-default btn-xs" role="button">Learn more</a></p>
+                  </div>
+                </div>
+            </div>
+            {% endverbatim %}
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer class="navbar-fixed-bottom">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Wonsano 2017</p>
+                </div>
+            </div>
+        </footer>
+
+    
+    <!-- /.container -->
+          </div>
+        </div>
+	</div>
+        
+        
+        
+         <div class="controls">
+            <h3>Current location</h3>
+            <p>
+                <button ng-click="addCurrentLocation()">__getCurrentLocation()__</button>                
+            </p>
+        </div>
+        <div class="map_container" >
+            <google-map center="map.center" zoom="map.zoom" draggable="true" options="map.options" control="map.control">
+                <markers models="map.markers" coords="'self'" options="'options'" isLabel='true'>
+                </markers>
+            </google-map>
+        </div>  
+       
+
+    </body>
+</html>

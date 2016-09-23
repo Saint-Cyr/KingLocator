@@ -146,7 +146,7 @@
               
               var data = {};
               $.ajax({
-                url: "http://localhost/KingLocator/web/app_dev.php/result",
+                url: "http://192.168.1.2/KingLocator/web/result",
                 type: "get", //send it through get method
                 data:{lat:response.lat, long:response.lng},
                 success: function(response) {
@@ -219,7 +219,7 @@
                 $('#mainPage').html('<img src="{{ asset('images/loader.gif') }}" style="margin:10%; padding-left: 11cm;" alt="" >');
                 $.ajax({
                     //url: "http://localhost/KingLocator/web/wonsano-search-content",
-                    url: "http://localhost/KingLocator/web/wonsano-search-content" + "?_=" + jQuery.now(),
+                    url: "http://192.168.1.2/KingLocator/web/wonsano-search-content" + "?_=" + jQuery.now(),
                     cache : false,
                     type: "get", //send it through get method
                     data:{keyWord:s},

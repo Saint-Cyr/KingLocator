@@ -34,7 +34,9 @@ class LocatorController extends Controller
             $tab[] = array('name' => $c->getName(), 'url' => $route, 'description' => $c->getDescription(), 'logo' => $c->getLogo());
         }
         
-        return new JsonResponse($tab);
+        $response = new JsonResponse($tab);
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost');
+        return $response;
     }
     
     public function stepTwoAction()
@@ -44,6 +46,17 @@ class LocatorController extends Controller
     
     public function stepThreeAction($id, $lat, $long)
     {
-        return new Response('welcome to the step three ! ID: '.$id.' LAT: '.$lat.' LONG: '.$long);
+        //Get the entity manager
+        $em = $this->getDoctrine()->getManager();
+        //Get the categoryInstance from the DB
+        $categoryInstance = $em->getRepository('KingBundle:CategoryInstance')->find($id);
+        //Make sure $category exists in DB
+        if(!$categoryInstance){
+            throw $this->createNotFoundException('Category Instance of ID "'.$id.'" not found in the DB');
+        }
+        //Get all the interest related to the categoryInstance
+        $interests = $categoryInstance->getInterests();
+        //$interests = $em->getRepository('KingBundle:Interest')->findAll();
+        return $this->render('KingBundle:Default:result.html.twig', array('interests' => $interests, 'categoryInstanceId' => $id));
     }
 }

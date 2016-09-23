@@ -67,8 +67,10 @@ app.factory('MarkerCreatorService', function () {
 
 app.controller('MapCtrl', ['MarkerCreatorService', '$window', '$scope', '$http', function (MarkerCreatorService, $window, $scope, $http) {
         
+        
+        
         //By S@int-Cyr
-        url = 'http://localhost/KingLocator/web/app_dev.php/category-instances';
+        url = 'http://192.168.1.2/KingLocator/web/category-instances';
         $http.get(url).success( function(response) {
                 $scope.categoryInstances = response;
         });
@@ -81,6 +83,7 @@ app.controller('MapCtrl', ['MarkerCreatorService', '$window', '$scope', '$http',
            $window.location.href = url+'/'+lat+'/'+long;
        }
        //End By S@int-Cyr
+        
         
         MarkerCreatorService.createByCoords(40.454018, -3.509205, function (marker) {
             marker.options.labelContent = 'Autentia';

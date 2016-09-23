@@ -38,6 +38,10 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         //Get the categoryInstance from the DB
         $categoryInstance = $em->getRepository('KingBundle:CategoryInstance')->find($categoryInstanceId);
+        //Make sure $category exists in DB
+        if(!$categoryInstance){
+            throw $this->createNotFoundException('Category Instance of ID "'.$categoryInstanceId.'" not found in the DB');
+        }
         //Get all the interest related to the categoryInstance
         $interests = $categoryInstance->getInterests();
         //$interests = $em->getRepository('KingBundle:Interest')->findAll();
@@ -66,11 +70,19 @@ class DefaultController extends Controller
         $categoryInstances = $em->getRepository('KingBundle:CategoryInstance')->getForSearch($keyWord);
         
         if(!$categoryInstances){
-            return new Response('<br> <p class="alert-warning">Sorry no result found for '.$keyWord.'. Notice that your interest owner have to subscribe
+            
+            $response = new Response('<br> <p class="alert-warning">Sorry no result found for '.$keyWord.'. Notice that your interest owner have to subscribe
                 to our service first. Refresh the current page to see the list of all registered interest</p>');
+            
+            $response->headers->set('Access-Control-Allow-Origin', 'http://localhost');
+            
+            return $response;
         }
         
-        return $this->render('KingBundle:Default:search_content.html.twig', array('categoryInstances' => $categoryInstances));
+        $response = new Response($this->renderView('KingBundle:Default:search_content.html.twig', array('categoryInstances' => $categoryInstances)), 200);
+                            
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost');
+        return $response;
     }
     
     public function iconAjaxAction()
@@ -87,7 +99,10 @@ class DefaultController extends Controller
             return new Response('no icon found');
         }
         
-        return $this->render('KingBundle:Default:icon_ajax.html.twig', array('fileName' => $icon->getName()));
+        $response = new Response($this->renderView('KingBundle:Default:icon_ajax.html.twig', array('fileName' => $icon->getName())), 200);
+                            
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost');
+        return $response;
         
     }
     
@@ -130,7 +145,12 @@ class DefaultController extends Controller
         //Sort all the interests
         $sortedInterests = $defaultHandler->getMostCloser($_unsortedInterests, $currentLocation, 'K');
         
-        return $this->render('KingBundle:Default:result_content.html.twig', array('interests' => $sortedInterests));
+        $response = new Response($this->renderView('KingBundle:Default:result_content.html.twig', array('interests' => $sortedInterests)), 200);
+                            
+        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost');
+        return $response;
+        
+       // return $this->render('KingBundle:Default:result_content.html.twig', array('interests' => $sortedInterests));
     }
     
     public function registerInterestAction(Request $request)
@@ -152,25 +172,30 @@ class DefaultController extends Controller
             $audioVisual = $interest->getAudioVisual();
             //array of names to passe to the service in ordert for it to name the files when moving them to theire location
             $fileNames = array();
-            //hydrate the object with the filename
-            $fileName = md5(uniqid()).'.'.$staticImage->guessExtension();
-            $fileNames['staticImage'] = $fileName;
-            $interest->setStaticImageName($fileName);
             
             
-                    
-            $fileName = md5(uniqid()).'.'.$animatedImage->guessExtension();
-            $fileNames['animatedImage'] = $fileName;
-            $interest->setAnimatedImageName($fileName);
+                //hydrate the object with the filename
+                $fileName = md5(uniqid()).'.'.$staticImage->guessExtension();
+                $fileNames['staticImage'] = $fileName;
+                $interest->setStaticImageName($fileName);
+                
             
-            $fileName = md5(uniqid()).'.'.$audio->guessExtension();
-            $fileNames['audio'] = $fileName;
-            $interest->setAudioName($fileName);
+                
+                $fileName = md5(uniqid()).'.'.$animatedImage->guessExtension();
+                $fileNames['animatedImage'] = $fileName;
+                $interest->setAnimatedImageName($fileName);
+                
             
-            $fileName = md5(uniqid()).'.'.$audioVisual->guessExtension();
-            $fileNames['audioVisual'] = $fileName;
-            $interest->setAudioVisualName($fileName);
+                $fileName = md5(uniqid()).'.'.$audioVisual->guessExtension();
+                $fileNames['audioVisual'] = $fileName;
+                $interest->setAudioVisualName($fileName);
+                
+           
+                $fileName = md5(uniqid()).'.'.$audio->guessExtension();
+                $fileNames['audio'] = $fileName;
+                $interest->setAudioName($fileName);
             
+           
             //Get the upload service handler
             $uploadHandler = $this->get('king.upload_handler');
             //Upload all the files in theire repective directories
