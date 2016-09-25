@@ -128,21 +128,7 @@
           //alert(response.lng);
           //alert(response.lat);
           map.setCenter(this.getPosition());
-          
-          //map.fitBounds(this.getBounds());
-         /* $.post('http://localhost/VTALLY/web/app_dev.php/api/fronts', {"lat":5.5, "long":-0.2}, function(data) {
-              $('#result').html(data);    
-          });*/
-          
-               /* $.get("http://localhost/KingLocator/web/app_dev.php/result",
-                {
-                        lat: "5.5",
-                        long: "-0.2"
-                      },
-              function(data, status){
-                  //alert("Data: " + data + "\nStatus: " + status);
-                  alert(JSON.stringify(data));
-              });*/
+         
               
               var data = {};
               $.ajax({
@@ -206,6 +192,7 @@
   <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-list-ul"></i> General</a></li>
     <li><a data-toggle="tab" href="#menu1"><i class="fa fa-image"></i> Images</a></li>
+    <li><a data-toggle="tab" href="#menu2"><i class="fa fa-image"></i> Audio</a></li>
     <li><a data-toggle="tab" href="#menu3"><i class="fa fa-film"></i> Audio Visual</a></li>
   </ul>
 
@@ -238,17 +225,21 @@
     <div id="menu1" class="tab-pane fade">
       <p><img src="{{ asset('upload/interest/staticImage/'~interest.staticImageName) }}" class="img-thumbnail" alt="Cinque Terre" width="304" height="236"/></p>
     </div>
+    <div id="menu2" class="tab-pane fade">
+      <p>
+        <audio controls>
+            <source src="{{ asset('upload/interest/audio/'~interest.audio) }}" type="audio/mpeg">
+        </audio>
+      </p>
+    </div>
     <div id="menu3" class="tab-pane fade">
       <p>
-        <video controls="controls" src="{{ asset('upload/interest/audioVisual/'~interest.audioVisualName) }}">
+        <video controls="controls" width="700px" height="360px" src="{{ asset('upload/interest/audioVisual/'~interest.audioVisualName) }}">
                 Your browser does not support the HTML5 Video element.
         </video>
       </p>
     </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    </div>
+    
   </div>   
         </div>
 

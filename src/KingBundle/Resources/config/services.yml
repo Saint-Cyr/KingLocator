@@ -6,19 +6,19 @@ services:
         class: KingBundle\Admin\CategoryAdmin
         arguments: [~, KingBundle\Entity\Category, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Category }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Category }
 
     king.admin.category_instance:
         class: KingBundle\Admin\CategoryInstanceAdmin
         arguments: [~, KingBundle\Entity\CategoryInstance, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: CategoryInstance }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: CategoryInstance }
 
     king.admin.interest:
         class: KingBundle\Admin\InterestAdmin
         arguments: [~, KingBundle\Entity\Interest, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Interest }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Interest }
     
     king.default_handler:
         class: KingBundle\Service\DefaultHandler
@@ -32,4 +32,4 @@ services:
         class: KingBundle\Admin\IconAdmin
         arguments: [~, KingBundle\Entity\Icon, SonataAdminBundle:CRUD]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Icon }
+            - { name: sonata.admin, manager_type: orm, group: Admin, label: Icon }

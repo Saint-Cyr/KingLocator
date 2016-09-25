@@ -31,6 +31,7 @@ class CategoryInstanceAdmin extends AbstractAdmin
             ->add('logo', null, array('template' => 'KingBundle:Default:list.html.twig'))
             ->add('headOfficeAdress')
             ->add('headOfficePhone')
+            ->add('user')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -46,13 +47,18 @@ class CategoryInstanceAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $requiredField = (preg_match('/_edit$/', $this->getRequest()->get('_route'))) ? false : true;
+        
         $formMapper
-        ->with('Details', array('class' => 'col-md-8'))
+        ->with('Details 1', array('class' => 'col-md-4'))
+            ->add('user')
             ->add('name')
-            ->add('description', 'textarea', array('attr' => array('class' => 'ckeditor')))
             ->add('headOfficeAdress')
             ->add('headOfficePhone')
-            ->add('file', 'file', array('required' => true))
+            ->add('file', 'file', array('required' => $requiredField))
+        ->end()
+        ->with('Details 2', array('class' => 'col-md-8'))
+            ->add('description', 'textarea', array('attr' => array('class' => 'ckeditor')))
         ->end()
         ;
     }

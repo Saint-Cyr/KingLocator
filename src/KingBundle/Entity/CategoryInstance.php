@@ -4,6 +4,7 @@ namespace KingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CategoryInstance
@@ -23,6 +24,14 @@ class CategoryInstance
      */
     private $id;
     
+    /*
+     * @Assert\Image(
+     *     minWidth = 190,
+     *     maxWidth = 200,
+     *     minHeight = 200,
+     *     maxHeight = 215
+     * )
+     */
     private $file;
     
     /**
@@ -88,6 +97,12 @@ class CategoryInstance
      * @ORM\OneToMany(targetEntity="KingBundle\Entity\Icon", mappedBy="categoryInstance")
      */
     private $icons;
+    
+    /**
+     * @ORM\OneToOne(targetEntity="UserBundle\Entity\User", inversedBy="categoryInstance")
+     * @ORM\JoinColumn(nullable = false)
+     */
+    private $user;
     
     /**
     * Sets file.
@@ -435,5 +450,29 @@ class CategoryInstance
     public function getInterests()
     {
         return $this->interests;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return CategoryInstance
+     */
+    public function setUser(\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

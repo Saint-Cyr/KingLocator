@@ -24,25 +24,17 @@
     $(document).ready(function(){
         $('#icon').html('<img src="{{ asset('images/loader.gif') }}" alt="" >');
         var s = $('#interest_icon').val();
-            //alert(s);
-            console.log(s);
-                $.ajax({
-                    url: "http://192.168.1.2/KingLocator/web/app_dev.php/icon-ajax",
-                    type: "get", //send it through get method
-                    data:{keyWord:s},
-                    success: function(response) {
-                      $('#icon').html(response);
-                    },
-                    error: function(xhr) {
-                    alert('An error occur when request page with AJAX.');
-                }
-              });
-              
+        //Make sure the value is defined before calling the AJAX
+        if(!s){
+           //Display Wonsano logo
+           $('#icon').html('<img src="{{ asset('images/logo.jpg') }}" width="100px" alt="" >'); 
+        }  
+        //When the user choose new icon then display the it      
         $('#interest_icon').change(function(){
-            $('#icon').html('<img src="{{ asset('images/loader.gif') }}" alt="" >');
+            $('#icon').html('<img src="{{ asset('images/loader.gif') }}" width="17px" alt="" >');
             var s = $('#interest_icon').val();
-            //alert(s);
-            console.log(s);
+            //Make sure the user did not choose the placeholder value
+            if(s){
                 $.ajax({
                     url: "http://192.168.1.2/KingLocator/web/app_dev.php/icon-ajax",
                     type: "get", //send it through get method
@@ -52,8 +44,11 @@
                     },
                     error: function(xhr) {
                     alert('An error occur when request page with AJAX.');
-                }
-              });
+                    }
+                });
+            }else{
+                $('#icon').html('<img src="{{ asset('images/logo.jpg') }}" width="100px" alt="" >');
+            }
         });
     });
   </script>
@@ -250,12 +245,7 @@
                 {{ form_widget(form.longitude, {'attr': {'class': 'form-control', 'readonly':'true'}, 'id':'us2-lon'}) }}
             </div>
         </div>
-        <div class="col-sm-4">    
-            <div class="input-group">
-                <div class="input-group-addon">Category Instance</div>
-                {{ form_widget(form.categoryInstance, {'attr': {'class': 'form-control', 'width':'110px'}}) }}
-            </div>
-        </div>
+        
     </div>
     
 </fieldset>

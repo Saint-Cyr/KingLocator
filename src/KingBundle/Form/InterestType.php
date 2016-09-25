@@ -5,8 +5,11 @@ namespace KingBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
+
 
 class InterestType extends AbstractType
 {
@@ -16,6 +19,17 @@ class InterestType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //Get the contexted Icons
+        $user = $options['user'];
+        
+        $categoryInstance = $user->getCategoryInstance();
+        //Make sure the user is a client that have been register and linked to an CategoryInstance
+        if(!$categoryInstance){
+            throw new AccessDeniedException();
+        }
+        
+        $icons = $categoryInstance->getIcons();
+        
         $builder
             ->add('name')
             ->add('email')
@@ -29,8 +43,11 @@ class InterestType extends AbstractType
             ->add('audioVisual', FileType::class, array('label' => 'Audio visual file', 'required' => true))
             ->add('localAddress')
             ->add('longitude')
-            ->add('categoryInstance')
-            ->add('icon')
+            ->add('icon', EntityType::class, array('class' => 'KingBundle:Icon',
+                                                   'choice_label' => 'nickName',
+                                                   'placeholder' => '---- Choose an icon ----',
+                                                   'choices' => $icons,
+                                                   ))
             ->add('save', 'submit')
         ;
     }
@@ -43,5 +60,7 @@ class InterestType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'KingBundle\Entity\Interest'
         ));
+        //Passe the security service as a required option to the form
+        $resolver->setRequired('user');
     }
 }

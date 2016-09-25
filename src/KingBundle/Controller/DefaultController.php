@@ -5,6 +5,7 @@ namespace KingBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use KingBundle\Form\TypeType;
 use KingBundle\Form\InterestType;
@@ -159,10 +160,20 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $interest = new Interest();
+        //Get the current user
+        $user = $this->getUser();
         
-        $form = $this->createForm(InterestType::class, $interest);
+        $form = $this->createForm(InterestType::class, $interest, array('user' => $user));
+        
+        $categoryInstance = $user->getCategoryInstance();
+        //Make sure the current user is linked to a categoryInstance
+        if(!$categoryInstance){
+            throw new AccessDeniedException();
+        }
         
         $form->handleRequest($request);
+        
+        $interest->setCategoryInstance($categoryInstance);
         
         if($form->isSubmitted() && $form->isValid()){
             //Get all the uploaded file (instance of Symfony\Component\HttpFoundation\File\UploadedFile)

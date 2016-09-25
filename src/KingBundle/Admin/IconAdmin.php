@@ -32,8 +32,8 @@ class IconAdmin extends AbstractAdmin
             ->add('id')
             ->add('fileExtension')
             ->add('nickName')
-            ->add('name')
-            //->add('name', null, array('template' => 'KingBundle:Default:list_icon.html.twig'))
+            //->add('name')
+            ->add('name', null, array('template' => 'KingBundle:Default:list_icon.html.twig'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -49,11 +49,13 @@ class IconAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $requiredField = (preg_match('/_edit$/', $this->getRequest()->get('_route'))) ? false : true;
+        
         $formMapper
             ->add('nickName')
             //->add('name')
             ->add('categoryInstance')
-            ->add('file', 'file', array('required' => true))
+            ->add('file', 'file', array('required' => $requiredField))
         ;
     }
 

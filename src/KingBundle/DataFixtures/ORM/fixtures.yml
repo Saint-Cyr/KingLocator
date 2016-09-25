@@ -35,10 +35,13 @@ KingBundle\Entity\CategoryInstance:
         name: ICGC
         description: Evangelical, charismatic church headed by Dr. Mensa Otabil. Accra, Ghana.
         logo: icgc.jpg
+        user: "@client"
+        
     categoryInstance2:
         name: Ecobank
         description: A regional commercial bank operating in many African countries.
         logo: ecobank.jpg
+        user: "@client2"
         
 KingBundle\Entity\Interest:
     interest1:
@@ -118,5 +121,41 @@ KingBundle\Entity\Icon:
         name: 5.jpg
         nickName: ICGC-Conv-Family
         categoryInstance: "@categoryInstance1"
-        
-        
+
+UserBundle\Entity\User:
+    super_admin:
+        username: super-admin
+        email: super-admin@domain.com
+        plainPassword: test
+        roles: [ROLE_SUPER_ADMIN]
+        enabled: true
+    super_admin2:
+        username: super-admin2
+        email: super-admin2@domain.com
+        plainPassword: test
+        roles: [ROLE_SUPER_ADMIN]
+        enabled: true
+    admin:
+        username: admin
+        email: admin@domain.com
+        plainPassword: test
+        roles: [ROLE_ADMIN]
+        enabled: true
+    admin2:
+        username: admin2
+        email: admin2@domain.com
+        plainPassword: test
+        roles: [ROLE_ADMIN]
+        enabled: true
+    client:
+        username: client
+        email: client@domain.com
+        plainPassword: test
+        roles: [ROLE_CLIENT]
+        enabled: true
+    client2:
+        username: client2
+        email: client2@domain.com
+        plainPassword: test
+        roles: [ROLE_CLIENT]
+        enabled: true

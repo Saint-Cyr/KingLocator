@@ -17,9 +17,6 @@ class InterestAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('categoryInstance')
-            ->add('name')
-            ->add('officialAddress')
-            ->add('localAddress')
         ;
     }
 
@@ -59,17 +56,24 @@ class InterestAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+        ->with('Connexion Information', array('class' => 'col-md-4'))
+            
+            ->add('name')
+            ->add('whatsApp')
+            ->add('createdAt')
+        ->end()
+        ->with('Media information', array('class' => 'col-md-4'))
             ->add('staticImageName')
             ->add('animatedImageName')
             ->add('audioName')
             ->add('audioVisualName')
-            ->add('name')
-            ->add('whatsApp')
-            ->add('latitude')
-            ->add('longitude')
-            ->add('officialAddress')
+        ->end()
+        ->with('Address informations', array('class' => 'col-md-4'))
+            ->add('latitude', null, array('disabled' => 'disabled'))
+            ->add('longitude', null, array('disabled' => 'disabled'))
+            ->add('officialAddress', null, array('disabled' => 'disabled'))
             ->add('localAddress')
-            ->add('createdAt')
+        ->end()
         ;
     }
 
