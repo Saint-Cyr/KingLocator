@@ -36,7 +36,7 @@
             //Make sure the user did not choose the placeholder value
             if(s){
                 $.ajax({
-                    url: "http://192.168.1.3/KingLocator2/web/app_dev.php/icon-ajax",
+                    url: "http://192.168.1.3/KingLocator2/web/icon-ajax",
                     type: "get", //send it through get method
                     data:{keyWord:s},
                     success: function(response) {
@@ -76,7 +76,7 @@
 <div class="container">
     <div class="alert alert-warning" role="alert"><em>Important notice:</em>
         Please notice that for the seek of quality of service that we care about a lot, the registration of an interest is strictly
-        crutial. Therefore we recommand you read this note before continue</div>
+        crutial. Therefore we recommand you read this note before continue. Also the audio file does support only .mp3 format</div>
      {% if app.session.flashBag.has('success') %}
         <div class="alert alert-success">
             {% for msg in app.session.flashBag.get('success') %}

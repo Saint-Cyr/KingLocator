@@ -202,7 +202,7 @@ class DefaultController extends Controller
                 $interest->setAudioVisualName($fileName);
                 
            
-                $fileName = md5(uniqid()).'.'.$audio->guessExtension();
+                $fileName = md5(uniqid()).'.mp3';
                 $fileNames['audio'] = $fileName;
                 $interest->setAudioName($fileName);
             
