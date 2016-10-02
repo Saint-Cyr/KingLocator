@@ -5,12 +5,14 @@ namespace KingBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Interest
  *
  * @ORM\Table(name="interest")
  * @ORM\Entity(repositoryClass="KingBundle\Repository\InterestRepository")
+ * @UniqueEntity(fields={"localAddress"})
  */
 class Interest
 {
@@ -129,7 +131,6 @@ class Interest
     
     /**
      * @var string
-     *
      * @ORM\Column(name="localAddress", type="string", length=255, unique=true, nullable=true)
      */
     private $localAddress;
