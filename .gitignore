@@ -7,6 +7,7 @@
 /phpunit.xml
 /vendor/
 /web/bundles/
+/web/upload/
 =======
 /app/config/parameters.yml
 /phpunit.xml
