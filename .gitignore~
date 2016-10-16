@@ -3,15 +3,12 @@
 !var/logs/.gitkeep
 <<<<<<< HEAD
 /var/logs/
-/app/config/parameters.yml
 /phpunit.xml
 /vendor/
 /web/bundles/
+/web/upload/
 =======
-/app/config/parameters.yml
 /phpunit.xml
 /vendor/
 /web/bundles/
 >>>>>>> development
-/nbproject/private/
-/nbproject/private

@@ -60,7 +60,15 @@ class StatisticHandlerTest extends WebTestCase
          * More information can be found in the fixtures file
          */
         //Get the fake list of interest from the fixtures
-        $interests = $this->em->getRepository('KingBundle:Interest')->findAll();
+        $_teshi = $this->em->getRepository('KingBundle:Interest')->find(1);
+        $_18junction = $this->em->getRepository('KingBundle:Interest')->find(2);
+        $_airport = $this->em->getRepository('KingBundle:Interest')->find(3);
+        
+        $interests[] = $_teshi;
+        $interests[] = $_18junction;
+        $interests[] = $_airport;
+        
+        //$interests = $this->em->getRepository('KingBundle:Interest')->findAll();
         
         //Set the distances (It have to be updated to much fixtures...in next version)
         $this->assertEquals($interests[1]->getName(), 'Branch of 18 Junction');
@@ -95,7 +103,7 @@ class StatisticHandlerTest extends WebTestCase
         
         $outPut = $this->defaultHandler->sorteByDistance($interests);
         //Prepare the expected result. The criteria to check the classification is name
-        $sorted = array('Branch of 18 Junction', 'Ecobank ATM Teshie Rd. Accra, Ghana', 'Ecobank Branch & ATM East Airport');
+        //$sorted = array('Branch of 18 Junction', 'Ecobank ATM Teshie Rd. Accra, Ghana', 'Ecobank Branch & ATM East Airport');
         
         $this->assertEquals($outPut[0]->getName(), 'Branch of 18 Junction');
         $this->assertEquals($outPut[1]->getName(), 'Ecobank ATM Teshie Rd. Accra, Ghana');
@@ -106,8 +114,14 @@ class StatisticHandlerTest extends WebTestCase
     
     public function testGetMostCloser()
     {
-        //Get the list of all the interests
-        $interests = $this->em->getRepository('KingBundle:Interest')->findAll();
+        //Get the fake list of interest from the fixtures
+        $_teshi = $this->em->getRepository('KingBundle:Interest')->find(1);
+        $_18junction = $this->em->getRepository('KingBundle:Interest')->find(2);
+        $_airport = $this->em->getRepository('KingBundle:Interest')->find(3);
+        
+        $interests[] = $_teshi;
+        $interests[] = $_18junction;
+        $interests[] = $_airport;
         //Prapare the fake input based on the fixtures documentation
         $currentLocation = array('lat' => 5.645, 'long' => -0.0698);
         $outPut = $this->defaultHandler->getMostCloser($interests, $currentLocation, 'K');

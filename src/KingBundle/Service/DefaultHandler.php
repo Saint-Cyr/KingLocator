@@ -18,7 +18,6 @@ class DefaultHandler
         $this->em = $em;
     }
     
-    
     /**
      * @return array list of $max sorted Interest that are most closer to $current location
      * @param array $interests

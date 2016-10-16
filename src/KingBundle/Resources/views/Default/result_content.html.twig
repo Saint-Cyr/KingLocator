@@ -4,7 +4,11 @@
     <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
      <div class="caption">
-         <p><img src="{{ asset('images/l'~loop.index~'.png') }}" width="33px"/> <a style="font-size:20px;"> {{ interest.name|striptags|slice(0, 27) }}</a></p>
+         <p><img src="{{ asset('images/l'~loop.index~'.png') }}" width="33px"/> 
+             <a style="font-size:20px;">
+                 {{ interest.name|striptags|slice(0, 21) }}
+             </a>
+         </p>
         <ul class="list-group">
             <li class="list-group-item">
                 
@@ -14,8 +18,8 @@
             </li>
             <li class="list-group-item">
                 <a href="{{ path('king_interest_detail', {'interestId':interest.id}) }}" >
-                    <i class="fa fa-film"></i>
-                </a> {{ interest.localAddress }}
+                    <i class="fa fa-arrows-h"></i>
+                </a> <span style="font-size: 25px; color: {% if loop.index == 1 %} green{% elseif loop.index == 2 %} orange {% else %} red{% endif %}; font-weight: bold;"> {{ interest.distance|number_format(2) }} Km </span>
             </li>
             <li class="list-group-item"><i class="fa fa-whatsapp"></i> 0234 0268 568 006 </li>
         </ul>

@@ -1,4 +1,4 @@
-/var/
+var/
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 <<<<<<< HEAD
@@ -7,12 +7,6 @@
 /phpunit.xml
 /vendor/
 /web/bundles/
-/web/upload/
 =======
-/app/config/parameters.yml
-/phpunit.xml
-/vendor/
-/web/bundles/
 >>>>>>> development
 /nbproject/private/
-/nbproject/private

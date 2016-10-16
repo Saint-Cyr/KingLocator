@@ -102,7 +102,7 @@
               
               var data = {};
               $.ajax({
-                url: "http://192.168.1.3/KingLocator2/web/result",
+                url: "http://192.168.1.3/KingLocator2/web/app_dev.php/result",
                 type: "get", //send it through get method
                 data:{lat:response.lat, long:response.lng, ID: {{ categoryInstanceId }} },
                 success: function(response) {
